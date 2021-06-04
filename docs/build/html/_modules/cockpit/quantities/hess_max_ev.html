@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.quantities.hess_max_ev &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.quantities.hess_max_ev</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.quantities.hess_max_ev</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class for tracking the Maximum Hessian Eigenvalue.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">backpack.hessianfree.hvp</span> <span class="kn">import</span> <span class="n">hessian_vector_product</span>
+<span class="kn">from</span> <span class="nn">backpack.utils.convert_parameters</span> <span class="kn">import</span> <span class="n">vector_to_parameter_list</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">LinearOperator</span><span class="p">,</span> <span class="n">eigsh</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils</span> <span class="kn">import</span> <span class="n">parameters_to_vector</span>
+
+<span class="kn">from</span> <span class="nn">cockpit.quantities.quantity</span> <span class="kn">import</span> <span class="n">SingleStepQuantity</span>
+
+
+<div class="viewcode-block" id="HessMaxEV"><a class="viewcode-back" href="../../../api/automod/cockpit.quantities.HessMaxEV.html#cockpit.quantities.HessMaxEV">[docs]</a><span class="k">class</span> <span class="nc">HessMaxEV</span><span class="p">(</span><span class="n">SingleStepQuantity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Quantity Class tracking the Hessian&#39;s largest eigenvalue.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_schedule</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_power</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization sets the tracking schedule &amp; creates the output dict.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            track_schedule (callable): Function that maps the ``global_step``</span>
+<span class="sd">                to a boolean, which determines if the quantity should be computed.</span>
+<span class="sd">            verbose (bool, optional): Turns on verbose mode. Defaults to ``False``.</span>
+<span class="sd">            use_power (bool): If ``True``, uses a power iteration that works on GPUs.</span>
+<span class="sd">                If ``True``, use :func:`scipy.sparse.linalg.eigsh`  for eigenvalue</span>
+<span class="sd">                computation (requires transfers from GPU to CPU and</span>
+<span class="sd">                ``torch`` to ``numpy``.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_schedule</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_use_power</span> <span class="o">=</span> <span class="n">use_power</span>
+
+    <span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return whether access to the forward pass computation graph is needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: ``True`` if the computation graph shall not be deleted,</span>
+<span class="sd">            else ``False``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extensions required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: (Potentially empty) list with required BackPACK quantities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the larges Hessian eigenvalue.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: Larges eigenvalue of the Hessian.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">HVP</span> <span class="o">=</span> <span class="n">HVPLinearOperator</span><span class="p">(</span>
+            <span class="n">batch_loss</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grad_params</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fetch_grad</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_power</span><span class="p">:</span>
+            <span class="n">max_ev</span> <span class="o">=</span> <span class="n">HVP</span><span class="o">.</span><span class="n">power_iteration</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">max_ev</span> <span class="o">=</span> <span class="n">eigsh</span><span class="p">(</span><span class="n">HVP</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;LA&quot;</span><span class="p">,</span> <span class="n">return_eigenvectors</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">max_ev</span><span class="p">)</span></div>
+
+
+<span class="c1"># Utility Function and Classes #</span>
+<span class="k">class</span> <span class="nc">BaseLinearOperator</span><span class="p">(</span><span class="n">LinearOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for GGNVPs and HVPs.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_numpy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert to `torch`, block into parameters.&quot;&quot;&quot;</span>
+        <span class="n">v_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">v_numpy</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vector_to_parameter_list</span><span class="p">(</span><span class="n">v_torch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_postprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_torch</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Flatten and concatenate, then convert to `numpy` array.&quot;&quot;&quot;</span>
+        <span class="n">v_torch_flat</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">v_torch</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">parameters_to_vector</span><span class="p">(</span><span class="n">v_torch_flat</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">HVPLinearOperator</span><span class="p">(</span><span class="n">BaseLinearOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Scipy interface for multiplication with the Hessian in torch.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grad_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Multiplication with the Hessian of loss w.r.t. params.&quot;&quot;&quot;</span>
+        <span class="n">num_params</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_params</span><span class="p">,</span> <span class="n">num_params</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
+
+        <span class="k">if</span> <span class="n">grad_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grad_params</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+                <span class="n">loss</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">retain_graph</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grad_params</span> <span class="o">=</span> <span class="n">grad_params</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">device</span>
+
+    <span class="k">def</span> <span class="nf">_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_numpy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Multiply with the Hessian.&quot;&quot;&quot;</span>
+        <span class="n">v_torch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="n">v_numpy</span><span class="p">)</span>
+        <span class="n">Hv_torch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hessian_vector_product</span><span class="p">(</span><span class="n">v_torch</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_postprocess</span><span class="p">(</span><span class="n">Hv_torch</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hessian_vector_product</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_torch</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Multiply by the Hessian using autodiff in torch.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">hessian_vector_product</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">v_torch</span><span class="p">,</span> <span class="n">grad_params</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grad_params</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">power_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the largest eigenvalue by power iteration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            maxiter (int): Maximum number of iterations.</span>
+<span class="sd">            rtol (float): Relative tolerance to determine convergence from</span>
+<span class="sd">                consecutive eigenvalues.</span>
+<span class="sd">            atol (float): Absolute tolerance to determine convergence from</span>
+<span class="sd">                consecutive eigenvalues.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (torch.Tensor): Maximum eigenvalue. Warns if maximum number of iterations</span>
+<span class="sd">            was reached and returns the potentially unconverged estimate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">converged</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">vecs</span><span class="p">):</span>
+            <span class="n">norm</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">v</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vecs</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vecs</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">/=</span> <span class="n">norm</span>
+
+        <span class="k">def</span> <span class="nf">iteration</span><span class="p">(</span><span class="n">vecs</span><span class="p">):</span>
+            <span class="n">new_vecs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hessian_vector_product</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span>
+            <span class="n">new_eigval</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">v</span> <span class="o">*</span> <span class="n">new_v</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">new_v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="n">new_vecs</span><span class="p">))</span>
+
+            <span class="n">normalize</span><span class="p">(</span><span class="n">new_vecs</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">new_vecs</span><span class="p">,</span> <span class="n">new_eigval</span>
+
+        <span class="n">vecs</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">rand_like</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">]</span>
+        <span class="n">normalize</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span>
+        <span class="n">eigval</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">vecs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">maxiter</span><span class="p">):</span>
+            <span class="n">vecs</span><span class="p">,</span> <span class="n">new_eigval</span> <span class="o">=</span> <span class="n">iteration</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">converged</span><span class="p">(</span><span class="n">eigval</span><span class="p">,</span> <span class="n">new_eigval</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">new_eigval</span>
+
+            <span class="n">eigval</span> <span class="o">=</span> <span class="n">new_eigval</span>
+
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exceeded maximum number of </span><span class="si">{</span><span class="n">maxiter</span><span class="si">}</span><span class="s2"> iterations&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">eigval</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

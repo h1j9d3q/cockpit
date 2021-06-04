@@ -1,0 +1,9 @@
+name: cockpit_test
+dependencies:
+  - pip=21.0.1
+  - python=3.7.10
+  - pip:
+    - -e .
+    - -r docs/requirements.txt
+    - -r experiments/requirements.txt
+    - -r tests/requirements.txt

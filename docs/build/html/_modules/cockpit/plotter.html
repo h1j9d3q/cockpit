@@ -1,0 +1,772 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.plotter &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.plotter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.plotter</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Plotting Part of the Cockpit.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">import</span> <span class="nn">json_tricks</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">from</span> <span class="nn">cockpit</span> <span class="kn">import</span> <span class="n">instruments</span>
+<span class="kn">from</span> <span class="nn">cockpit.cockpit</span> <span class="kn">import</span> <span class="n">Cockpit</span>
+<span class="kn">from</span> <span class="nn">cockpit.instruments</span> <span class="kn">import</span> <span class="n">utils_plotting</span>
+
+
+<div class="viewcode-block" id="CockpitPlotter"><a class="viewcode-back" href="../../api/plotter.html#cockpit.CockpitPlotter">[docs]</a><span class="k">class</span> <span class="nc">CockpitPlotter</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cockpit Plotter Class.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secondary_screen</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the cockpit plotter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            secondary_screen (bool): Whether to plot other experimental quantities</span>
+<span class="sd">                on a secondary screen.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mpl_default_backend</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mpl_no_show_backend</span> <span class="o">=</span> <span class="s2">&quot;Agg&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_screen</span> <span class="o">=</span> <span class="n">secondary_screen</span>
+
+        <span class="c1"># Set plotting parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_plotting_params</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_layout_params</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__update_problem_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Try extracting and storing info about model, optimizer, dataset.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">utils_plotting</span><span class="o">.</span><span class="n">_extract_problem_info</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_layout_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize parameters that define the plot layout.&quot;&quot;&quot;</span>
+        <span class="c1"># Individual parts are managed separetely but (for now) they share a layout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_rows</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_cols</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inner_width_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inner_height_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inner_hspace</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+    <span class="k">def</span> <span class="nf">_set_backend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show_plot</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use a backend that does (not) show plots.&quot;&quot;&quot;</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpl_default_backend</span> <span class="k">if</span> <span class="n">show_plot</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mpl_no_show_backend</span>
+
+        <span class="k">if</span> <span class="n">current</span> <span class="o">!=</span> <span class="n">new</span><span class="p">:</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CockpitPlotter.plot"><a class="viewcode-back" href="../../api/plotter.html#cockpit.CockpitPlotter.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">source</span><span class="p">,</span>
+        <span class="n">savedir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">save_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">savename_append</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_log_iter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">discard</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">plot_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot the cockpit for the current state of the log file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source (Cockpit or str): ``Cockpit`` instance, or string</span>
+<span class="sd">                containing the path to a .json log produced with ``Cockpit.write``,</span>
+<span class="sd">                where information will be fetched from.</span>
+<span class="sd">            savedir (str): Directory where to save the plot.</span>
+<span class="sd">            show_plot (bool, optional): Whether the plot should be shown on</span>
+<span class="sd">                screen. Defaults to True.</span>
+<span class="sd">            save_plot (bool, optional): Whether the plot should be saved to disk.</span>
+<span class="sd">                Defaults to False.</span>
+<span class="sd">            savename_append (str, optional): Optional appendix to the savefile</span>
+<span class="sd">                name. Defaults to None.</span>
+<span class="sd">            block (bool, optional): Whether the halt the computation after</span>
+<span class="sd">                blocking or not. Defaults to False.</span>
+<span class="sd">            show_log_iter (bool, optional): Whether the instruments should use</span>
+<span class="sd">                a log scale for the iterations. Defaults to False.</span>
+<span class="sd">            discard (int, optional): Global step after which information</span>
+<span class="sd">                should be discarded.</span>
+<span class="sd">            plot_title (str, optional): Cockpit&#39;s  plot title. Defauts to None.</span>
+<span class="sd">                In this case Cockpit tries to infer the optimizer/problem/etc.</span>
+<span class="sd">                from the logpath and show it as the title. Which can be manually</span>
+<span class="sd">                overwritten with by passing this string.</span>
+<span class="sd">            debug (bool, optional): Enable debug mode.. Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: Raises ValueError if source is a ``Cockpit`` instance,</span>
+<span class="sd">                but no savedir is given.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__update_problem_info</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_backend</span><span class="p">(</span><span class="n">show_plot</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_log_iter</span> <span class="o">=</span> <span class="n">show_log_iter</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;fig&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="s2">&quot;Primary screen&quot;</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># read in results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_tracking_results</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard</span><span class="p">)</span>
+
+        <span class="c1"># Plotting</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>  <span class="c1"># clear the cockpit figure to replace it</span>
+
+        <span class="c1"># Subplot grid: Currently looks like this.</span>
+        <span class="c1"># +-----------------------+------------------------+--------------------+</span>
+        <span class="c1"># | STEP SIZE:            | GRADIENTS:           | CURVATURE            |</span>
+        <span class="c1"># |                       |                      |                      |</span>
+        <span class="c1"># | Alpha Gauge           | Gradient Tests Gauge | MaxEV                |</span>
+        <span class="c1"># | Distance              | 1D Histogram         | Trace (layerwise)    |</span>
+        <span class="c1"># | Grad Norm             | 2D Histogram         | TIC                  |</span>
+        <span class="c1"># |                                                                     |</span>
+        <span class="c1"># | Hyperparameter Gauge  |  Performance Gauge                          |</span>
+        <span class="c1"># +-----------------------+------------------------+--------------------+</span>
+
+        <span class="c1"># Build the larger grid (for the three categories, and the two bottom plots)</span>
+        <span class="n">outer_widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">outer_heights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span>
+            <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">width_ratios</span><span class="o">=</span><span class="n">outer_widths</span><span class="p">,</span>
+            <span class="n">height_ratios</span><span class="o">=</span><span class="n">outer_heights</span><span class="p">,</span>
+            <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">hspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_gradients</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_curvature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_hyperparams</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_performance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:])</span>
+
+        <span class="c1"># Post Process Title, Legend etc.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post_process_plot</span><span class="p">(</span><span class="n">plot_title</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_screen</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_secondary_screen</span><span class="p">()</span>
+
+        <span class="c1"># Show or Save plots</span>
+        <span class="k">if</span> <span class="n">show_plot</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;[cockpit|plot] Showing current Cockpit.&quot;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot; Blocking. Close plot to continue.&quot;</span> <span class="k">if</span> <span class="n">block</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">save_plot</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">savedir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">savedir</span> <span class="o">=</span> <span class="n">source</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please specify savedir when plotting a Cockpit.&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">savedir</span><span class="p">,</span> <span class="n">savename_append</span><span class="p">,</span> <span class="n">screen</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_screen</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">savedir</span><span class="p">,</span> <span class="n">savename_append</span><span class="p">,</span> <span class="n">screen</span><span class="o">=</span><span class="s2">&quot;secondary&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_plot_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot all instruments having to do with step size in the given gridspec.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grid_spec (matplotlib.gridspec): GridSpec where the plot should be placed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use grid_spec with a &quot;dummy plot&quot; to set Group title and color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid_spec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_step</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;STEP SIZE&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;x-large&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_step</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color_one</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_step</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_step</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+        <span class="c1"># Build inner structure of this plotting group</span>
+        <span class="c1"># We use additional &quot;dummy&quot; gridspecs to position the instruments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_step</span> <span class="o">=</span> <span class="n">grid_spec</span><span class="o">.</span><span class="n">subgridspec</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_rows</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_cols</span><span class="p">,</span>
+            <span class="n">width_ratios</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_width_ratios</span><span class="p">,</span>
+            <span class="n">height_ratios</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_height_ratios</span><span class="p">,</span>
+            <span class="n">hspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_hspace</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">instruments</span><span class="o">.</span><span class="n">alpha_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_step</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">distance_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_step</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">grad_norm_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_step</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_plot_gradients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot all instruments having to do with the gradients in the given gridspec.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grid_spec (matplotlib.gridspec): GridSpec where the plot should be placed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use grid_spec with a &quot;dummy plot&quot; to set Group title and color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_gradients</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid_spec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_gradients</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;GRADIENTS&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;x-large&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_gradients</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color_two</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_gradients</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_gradients</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+        <span class="c1"># Build inner structure of this plotting group</span>
+        <span class="c1"># We use additional &quot;dummy&quot; gridspecs to position the instruments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_gradients</span> <span class="o">=</span> <span class="n">grid_spec</span><span class="o">.</span><span class="n">subgridspec</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_rows</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_cols</span><span class="p">,</span>
+            <span class="n">width_ratios</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_width_ratios</span><span class="p">,</span>
+            <span class="n">height_ratios</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_height_ratios</span><span class="p">,</span>
+            <span class="n">hspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_hspace</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">instruments</span><span class="o">.</span><span class="n">gradient_tests_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_gradients</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">histogram_1d_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_gradients</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">histogram_2d_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_gradients</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_plot_curvature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot all instruments having to do with curvature in the given gridspec.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grid_spec (matplotlib.gridspec): GridSpec where the plot should be placed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use grid_spec with a &quot;dummy plot&quot; to set Group title and color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_curvature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid_spec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_curvature</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;CURVATURE&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;x-large&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_curvature</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color_three</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_curvature</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_curvature</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+        <span class="c1"># Build inner structure of this plotting group</span>
+        <span class="c1"># We use additional &quot;dummy&quot; gridspecs to position the instruments</span>
+        <span class="n">inner_width_ratios_curvature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_width_ratios</span><span class="p">[:]</span>
+        <span class="n">inner_width_ratios_curvature</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">inner_width_ratios_curvature</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">inner_width_ratios_curvature</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_curvature</span> <span class="o">=</span> <span class="n">grid_spec</span><span class="o">.</span><span class="n">subgridspec</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_rows</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inner_num_cols</span><span class="p">,</span>
+            <span class="n">width_ratios</span><span class="o">=</span><span class="n">inner_width_ratios_curvature</span><span class="p">,</span>
+            <span class="n">height_ratios</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_height_ratios</span><span class="p">,</span>
+            <span class="n">hspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_hspace</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">instruments</span><span class="o">.</span><span class="n">max_ev_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_curvature</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">trace_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_curvature</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">tic_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_curvature</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_plot_hyperparams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot all instruments showing the hyperparameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grid_spec (matplotlib.gridspec): GridSpec where the plot should be placed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">hyperparameter_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_plot_performance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot all instruments having to do with the networks performance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grid_spec (matplotlib.gridspec): GridSpec where the plot should be placed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">performance_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build_animation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">logpath</span><span class="p">,</span>
+        <span class="n">duration</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Build an animation from the stored images during training.</span>
+
+<span class="sd">        TODO Make this independant of stored images. Instead generate those images</span>
+<span class="sd">        in hindsight and ideally use fixed axis.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            logpath (str): Full logpath to the JSON file.</span>
+<span class="sd">            duration (int, optional): Time to display each frame, in milliseconds.</span>
+<span class="sd">                Defaults to 200.</span>
+<span class="sd">            loop (int, optional): Number of times the GIF should loop.</span>
+<span class="sd">                Defaults to 0 which means it will loop forever.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">screens</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;primary&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_screen</span><span class="p">:</span>
+            <span class="n">screens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;secondary&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">screen</span> <span class="ow">in</span> <span class="n">screens</span><span class="p">:</span>
+            <span class="n">fp_out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">logpath</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;__</span><span class="si">{</span><span class="n">screen</span><span class="si">}</span><span class="s2">.gif&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_animate</span><span class="p">(</span><span class="n">logpath</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">fp_out</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_animate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logpath</span><span class="p">,</span> <span class="n">screen</span><span class="p">,</span> <span class="n">fp_out</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">loop</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate animation from paths to images and save.&quot;&quot;&quot;</span>
+        <span class="c1"># load frames</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">logpath</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;__</span><span class="si">{</span><span class="n">screen</span><span class="si">}</span><span class="s2">__epoch__*.png&quot;</span>
+
+        <span class="n">frame_paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+        <span class="n">frame</span><span class="p">,</span> <span class="o">*</span><span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">frame_paths</span><span class="p">]</span>
+
+        <span class="c1"># Collect images and create Animation</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[cockpit|animate] Saving GIF in </span><span class="si">{</span><span class="n">fp_out</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">frame</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+            <span class="n">fp</span><span class="o">=</span><span class="n">fp_out</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;GIF&quot;</span><span class="p">,</span>
+            <span class="n">append_images</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">save_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span>
+            <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_plotting_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the general plotting options, such as plot size, style, etc.&quot;&quot;&quot;</span>
+        <span class="c1"># Settings:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># turn on interactive mode, so programm continues while plotting.</span>
+        <span class="n">plot_size_default</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+        <span class="n">plot_scale</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># 0.7 works well for the MacBook</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;dark&quot;</span><span class="p">)</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">font_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_format</span> <span class="o">=</span> <span class="s2">&quot;.png&quot;</span>  <span class="c1"># how the plots should be saved</span>
+        <span class="c1"># Colors #</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.29</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.68</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># blue #4a73ad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">secondary_color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># orange #f28033</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tertiary_color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># green #339966</span>
+        <span class="c1"># Background colors for the plotting groups</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.75</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_color_one</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">alpha</span><span class="p">,)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_color_two</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_color</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">alpha</span><span class="p">,)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_color_three</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tertiary_color</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">alpha</span><span class="p">,)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span>  <span class="c1"># primary color map</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmap2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cool</span>  <span class="c1"># secondary color map</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_cmap</span> <span class="o">=</span> <span class="n">utils_plotting</span><span class="o">.</span><span class="n">_alpha_cmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_color_instruments</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_color_instruments2</span> <span class="o">=</span> <span class="s2">&quot;#ababba&quot;</span>  <span class="c1"># highlight color of summary plots</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">EMA_alpha</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># Decay factor of the exponential moving avg.</span>
+
+        <span class="c1"># Apply the settings</span>
+        <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">plot_scale</span> <span class="o">*</span> <span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">plot_size_default</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_read_tracking_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read the tracking results from the JSON file into an internal DataFrame.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source (Cockpit or str): ``Cockpit`` instance, or string containing the path</span>
+<span class="sd">                to a .json log produced with ``Cockpit.write``, where information will</span>
+<span class="sd">                be fetched from.</span>
+<span class="sd">            discard (int, optional): Global step after which information should be</span>
+<span class="sd">                discarded.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If `source` is neither a ``Cockpit```instance or string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Cockpit</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">get_output</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c1"># defaultdict to be consistent with fetching from Cockpit</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">json_tricks</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Source must be Cockpit or path to .json. Got </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Read data into a DataFrame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+        <span class="c1"># Change data type of index to numeric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="c1"># Sort by this index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+        <span class="c1"># Rename index to &#39;iteration&#39; and store it in seperate column</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s2">&quot;iteration&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">discard</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;=</span> <span class="n">discard</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logpath</span><span class="p">,</span> <span class="n">savename_append</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">screen</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the (internal) figure to file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            logpath (str): Full logpath to the JSON file.</span>
+<span class="sd">            savename_append (str, optional): Optional appendix to the savefile</span>
+<span class="sd">                name. Defaults to None.</span>
+<span class="sd">            screen (str): String that specifies screen figure should be saved.</span>
+<span class="sd">                Possible options are ``&#39;primary&#39;`` and ``&#39;secondary&#39;``.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If screen is neither ``primary`` nor ``secondary``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">savename_append</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">savename_append</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">file_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">logpath</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;__</span><span class="si">{</span><span class="n">screen</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="n">savename_append</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_format</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">screen</span> <span class="o">==</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span>
+        <span class="k">elif</span> <span class="n">screen</span> <span class="o">==</span> <span class="s2">&quot;secondary&quot;</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;screen must be &#39;primary&#39; or &#39;secondar&#39;y. Got </span><span class="si">{</span><span class="n">screen</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[cockpit|plot] Saving figure in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_post_process_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_title</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Process the plotting figure, by adding a title, legend, etc.&quot;&quot;&quot;</span>
+        <span class="c1"># Set Title</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">plot_title</span><span class="p">:</span>
+            <span class="n">plot_title</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Cockpit for &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="k">else</span> <span class="s2">&quot;Cockpit&quot;</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">plot_title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;xx-large&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_plot_secondary_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot a second figure with experimental quantities.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;secondary_fig&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span>
+                <span class="s2">&quot;Secondary screen&quot;</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+        <span class="n">secondary_outer_widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">secondary_outer_heights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">secondary_grid_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span>
+            <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">width_ratios</span><span class="o">=</span><span class="n">secondary_outer_widths</span><span class="p">,</span>
+            <span class="n">height_ratios</span><span class="o">=</span><span class="n">secondary_outer_heights</span><span class="p">,</span>
+            <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">hspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_ax_auxiliary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secondary_grid_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_auxiliary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secondary_grid_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__set_ax_layerwise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secondary_grid_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_layerwise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secondary_grid_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">__set_ax_auxiliary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use grid_spec with a &quot;dummy plot&quot; to set Group title and color.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_auxiliary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid_spec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_auxiliary</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;AUXILIARY&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;x-large&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_auxiliary</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color_one</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_auxiliary</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_auxiliary</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+    <span class="k">def</span> <span class="nf">_plot_auxiliary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot auxiliary quantities to the secondary screen.&quot;&quot;&quot;</span>
+        <span class="c1"># Build inner structure of this plotting group</span>
+        <span class="c1"># We use additional &quot;dummy&quot; gridspecs to position the instruments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_auxiliary</span> <span class="o">=</span> <span class="n">grid_spec</span><span class="o">.</span><span class="n">subgridspec</span><span class="p">(</span>
+            <span class="mi">3</span><span class="p">,</span>
+            <span class="mi">7</span><span class="p">,</span>
+            <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+            <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="n">hspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_hspace</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># plot mean GS NR</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">mean_gsnr_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_auxiliary</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">cabs_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_auxiliary</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="n">instruments</span><span class="o">.</span><span class="n">early_stopping_gauge</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_auxiliary</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__set_ax_layerwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use grid_spec with a &quot;dummy plot&quot; to set Group title and color.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_layerwise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid_spec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_layerwise</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;LAYERWISE&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;x-large&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_layerwise</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color_two</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_layerwise</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax_layerwise</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+    <span class="k">def</span> <span class="nf">_plot_layerwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spec</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot layerwise 2d histograms to the secondary screen.&quot;&quot;&quot;</span>
+        <span class="c1"># Build inner structure</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">param_groups</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[[</span><span class="s2">&quot;param_groups&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Cannot create layerwise plots (missing &#39;param_groups&#39;)&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">def</span> <span class="nf">get_layout</span><span class="p">(</span><span class="n">num_plots</span><span class="p">,</span> <span class="n">min_rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_cols</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Step-wise increase rows and columns until they can fit all plots.&quot;&quot;&quot;</span>
+            <span class="n">dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">min_rows</span><span class="p">,</span> <span class="n">min_cols</span><span class="p">]</span>
+
+            <span class="n">increase_next</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">num_plots</span><span class="p">:</span>
+                <span class="n">dims</span><span class="p">[</span><span class="n">increase_next</span><span class="p">]</span> <span class="o">=</span> <span class="n">dims</span><span class="p">[</span><span class="n">increase_next</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">increase_next</span> <span class="o">=</span> <span class="p">(</span><span class="n">increase_next</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+
+            <span class="k">return</span> <span class="n">dims</span>
+
+        <span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">=</span> <span class="n">get_layout</span><span class="p">(</span><span class="n">param_groups</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_layerwise</span> <span class="o">=</span> <span class="n">grid_spec</span><span class="o">.</span><span class="n">subgridspec</span><span class="p">(</span>
+            <span class="mi">2</span> <span class="o">*</span> <span class="n">num_rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="mi">2</span> <span class="o">*</span> <span class="n">num_cols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">width_ratios</span><span class="o">=</span><span class="n">num_cols</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">],</span>
+            <span class="n">height_ratios</span><span class="o">=</span><span class="n">num_rows</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span>
+            <span class="n">hspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_hspace</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">to_grid</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Map one-dimension index to coordinates in 2d layout.</span>
+
+<span class="sd">            Need to take into account the padding around actual plots.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                idx (int): One-dimensional index.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                tupel: Tupel of x, y coordinates of index in 2d layout.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">param_groups</span>
+            <span class="n">x_unpadded</span><span class="p">,</span> <span class="n">y_unpadded</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x_unpadded</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y_unpadded</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">fig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_fig</span>
+
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">param_groups</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">to_grid</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="n">instruments</span><span class="o">.</span><span class="n">histogram_2d_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_layerwise</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">idx</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

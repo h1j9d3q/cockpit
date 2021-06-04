@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Basic Example &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced Example" href="02_advanced_fmnist.html" />
+    <link rel="prev" title="Cockpit" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-the-problem">Defining the Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-cockpit">Configuring the Cockpit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#training-loop">Training Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-the-cockpit">Plotting the Cockpit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Basic Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/01_basic_fmnist.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="basic-example">
+<span id="id1"></span><h1>Basic Example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h1>
+<p>This snippet below shows an example of using <strong>Cockpit</strong> with a standard PyTorch
+training loop.
+Lines that are highlighted in yellow highlight <strong>Cockpit</strong>-specific code, but
+don’t worry, most of these changes are simple plug-and-play solutions.</p>
+<p>You can try out this basic example yourself.
+Simply install <strong>Cockpit</strong> via</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="s1">&#39;git+https://h1j9d3q.github.io/cockpit/&#39;</span>
+</pre></div>
+</div>
+<p>and then copy the <a class="reference external" href="https://github.com/h1j9d3q/cockpit/tree/master/examples">example files</a>
+from the repository or from the code block below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don’t forget the <a class="reference download internal" download="" href="../_downloads/58950aa48bebe2ac11a3cc1d481b336c/_utils_examples.py"><code class="xref download docutils literal notranslate"><span class="pre">utility</span> <span class="pre">file</span></code></a>
+which provides the data for this example.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="sd">&quot;&quot;&quot;A basic example of using Cockpit with PyTorch for Fashion-MNIST.&quot;&quot;&quot;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="hll"><span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">_utils_examples</span> <span class="kn">import</span> <span class="n">fmnist_data</span>
+</span><span class="hll"><span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">backpack</span> <span class="kn">import</span> <span class="n">extend</span>
+</span><span class="linenos"> 6</span>
+<span class="hll"><span class="linenos"> 7</span><span class="kn">from</span> <span class="nn">cockpit</span> <span class="kn">import</span> <span class="n">Cockpit</span><span class="p">,</span> <span class="n">CockpitPlotter</span>
+</span><span class="hll"><span class="linenos"> 8</span><span class="kn">from</span> <span class="nn">cockpit.utils.configuration</span> <span class="kn">import</span> <span class="n">configuration</span>
+</span><span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Build Fashion-MNIST classifier</span>
+<span class="linenos">11</span><span class="n">fmnist_data</span> <span class="o">=</span> <span class="n">fmnist_data</span><span class="p">()</span>
+<span class="hll"><span class="linenos">12</span><span class="n">model</span> <span class="o">=</span> <span class="n">extend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+</span><span class="hll"><span class="linenos">13</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">extend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">))</span>
+</span><span class="hll"><span class="linenos">14</span><span class="n">individual_loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+</span><span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># Create SGD Optimizer</span>
+<span class="linenos">17</span><span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># Create Cockpit and a plotter</span>
+<span class="hll"><span class="linenos">20</span><span class="n">cockpit</span> <span class="o">=</span> <span class="n">Cockpit</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">quantities</span><span class="o">=</span><span class="n">configuration</span><span class="p">(</span><span class="s2">&quot;full&quot;</span><span class="p">))</span>
+</span><span class="hll"><span class="linenos">21</span><span class="n">plotter</span> <span class="o">=</span> <span class="n">CockpitPlotter</span><span class="p">()</span>
+</span><span class="linenos">22</span>
+<span class="linenos">23</span><span class="c1"># Main training loop</span>
+<span class="linenos">24</span><span class="n">max_steps</span><span class="p">,</span> <span class="n">global_step</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span>
+<span class="linenos">25</span><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">fmnist_data</span><span class="p">):</span>
+<span class="linenos">26</span>    <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="c1"># forward pass</span>
+<span class="linenos">29</span>    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="linenos">30</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="hll"><span class="linenos">31</span>    <span class="n">losses</span> <span class="o">=</span> <span class="n">individual_loss_fn</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+</span><span class="linenos">32</span>
+<span class="linenos">33</span>    <span class="c1"># backward pass</span>
+<span class="hll"><span class="linenos">34</span>    <span class="k">with</span> <span class="n">cockpit</span><span class="p">(</span>
+</span><span class="hll"><span class="linenos">35</span>        <span class="n">global_step</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">36</span>        <span class="n">info</span><span class="o">=</span><span class="p">{</span>
+</span><span class="hll"><span class="linenos">37</span>            <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+</span><span class="hll"><span class="linenos">38</span>            <span class="s2">&quot;individual_losses&quot;</span><span class="p">:</span> <span class="n">losses</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">39</span>            <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">40</span>            <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="n">opt</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">41</span>        <span class="p">},</span>
+</span><span class="hll"><span class="linenos">42</span>    <span class="p">):</span>
+</span><span class="hll"><span class="linenos">43</span>        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">create_graph</span><span class="o">=</span><span class="n">cockpit</span><span class="o">.</span><span class="n">create_graph</span><span class="p">(</span><span class="n">global_step</span><span class="p">))</span>
+</span><span class="linenos">44</span>
+<span class="linenos">45</span>    <span class="c1"># optimizer step</span>
+<span class="linenos">46</span>    <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="linenos">47</span>    <span class="n">global_step</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step: </span><span class="si">{</span><span class="n">global_step</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> | Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">50</span>
+<span class="hll"><span class="linenos">51</span>    <span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cockpit</span><span class="p">)</span>
+</span><span class="linenos">52</span>
+<span class="linenos">53</span>    <span class="k">if</span> <span class="n">global_step</span> <span class="o">&gt;=</span> <span class="n">max_steps</span><span class="p">:</span>
+<span class="linenos">54</span>        <span class="k">break</span>
+<span class="linenos">55</span>
+<span class="hll"><span class="linenos">56</span><span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cockpit</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Try running this <a class="reference download internal" download="" href="../_downloads/b13edd101a045e13e68408efa79fc824/01_basic_fmnist.py"><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">script</span></code></a>
+via</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python 01_basic_fmnist.py
+</pre></div>
+</div>
+<p>During every iteration of the training process, <strong>Cockpit</strong> will show you a
+status screen of the training.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python 01_basic_fmnist.py
+
+<span class="go">Step:     1 | Loss: 2.5365</span>
+<span class="go">[cockpit|plot] Showing current Cockpit.</span>
+<span class="go">Step:     2 | Loss: 2.1643</span>
+<span class="go">[cockpit|plot] Showing current Cockpit.</span>
+<span class="go">Step:     3 | Loss: 1.9929</span>
+<span class="go">[cockpit|plot] Showing current Cockpit.</span>
+<span class="go">Step:     4 | Loss: 1.9733</span>
+<span class="go">[cockpit|plot] Showing current Cockpit.</span>
+<span class="go">Step:     5 | Loss: 1.6479</span>
+<span class="go">[cockpit|plot] Showing current Cockpit.</span>
+<span class="go">[cockpit|plot] Showing current Cockpit. Blocking. Close plot to continue.</span>
+</pre></div>
+</div>
+<p>which will look something like this</p>
+<img alt="Preview Cockpit Basic Example" src="../_images/01_basic_fmnist.png" />
+<p>In the following, we will break-down and explain each step of this exampe, which
+also explains what is required to include <strong>Cockpit</strong> to a training loop.</p>
+<div class="section" id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="sd">&quot;&quot;&quot;A basic example of using Cockpit with PyTorch for Fashion-MNIST.&quot;&quot;&quot;</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="hll"><span class="linenos">4</span><span class="kn">from</span> <span class="nn">_utils_examples</span> <span class="kn">import</span> <span class="n">fmnist_data</span>
+</span><span class="hll"><span class="linenos">5</span><span class="kn">from</span> <span class="nn">backpack</span> <span class="kn">import</span> <span class="n">extend</span>
+</span><span class="linenos">6</span>
+<span class="hll"><span class="linenos">7</span><span class="kn">from</span> <span class="nn">cockpit</span> <span class="kn">import</span> <span class="n">Cockpit</span><span class="p">,</span> <span class="n">CockpitPlotter</span>
+</span><span class="hll"><span class="linenos">8</span><span class="kn">from</span> <span class="nn">cockpit.utils.configuration</span> <span class="kn">import</span> <span class="n">configuration</span>
+</span></pre></div>
+</div>
+<p>Additionally to importing PyTorch, we import BackPACK which will automatically
+be installed when installing <strong>Cockpit</strong>. We also import the <a class="reference internal" href="../api/cockpit.html#cockpit.Cockpit" title="cockpit.Cockpit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cockpit</span></code></a>
+and <a class="reference internal" href="../api/plotter.html#cockpit.CockpitPlotter" title="cockpit.CockpitPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">CockpitPlotter</span></code></a> class which will let us track and then
+visualize insightful quantities.</p>
+<p>To simplify the code snippet, in line 4, we import from a utils file which will
+provide us with the Fashion-MNIST data.</p>
+</div>
+<div class="section" id="defining-the-problem">
+<h2>Defining the Problem<a class="headerlink" href="#defining-the-problem" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">10</span><span class="c1"># Build Fashion-MNIST classifier</span>
+<span class="linenos">11</span><span class="n">fmnist_data</span> <span class="o">=</span> <span class="n">fmnist_data</span><span class="p">()</span>
+<span class="hll"><span class="linenos">12</span><span class="n">model</span> <span class="o">=</span> <span class="n">extend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+</span><span class="hll"><span class="linenos">13</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">extend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">))</span>
+</span><span class="hll"><span class="linenos">14</span><span class="n">individual_loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Next, we build a simple classifier for our Fashion-MNIST data set.</p>
+<p>The only change to a traditional training loop is that we need to
+<a class="reference external" href="https://docs.backpack.pt/en/master/main-api.html#how-to-use-backpack">extend</a>
+both the model and the loss function using BackPACK.
+This is as simple as wrapping the traditional model and loss function in the
+<code class="docutils literal notranslate"><span class="pre">extend()</span></code> function provided by BackPACK.
+It lets BackPACK know that additional quantities (such as individual gradients)
+should be computed for these parameters.</p>
+<p>For the <a class="reference internal" href="../api/automod/cockpit.quantities.Alpha.html#cockpit.quantities.Alpha" title="cockpit.quantities.Alpha"><code class="xref py py-class docutils literal notranslate"><span class="pre">Alpha</span></code></a> quantity we also require access to
+the individual loss values, which can be computed cheaply but is not usually
+part of a conventional training loop.
+We can create this function analogously to the regular loss function just setting
+the <code class="docutils literal notranslate"><span class="pre">reduction=None</span></code>.
+There is no need to let BackPACK know about its existence, since these losses
+will not be differentiated.</p>
+</div>
+<div class="section" id="configuring-the-cockpit">
+<h2>Configuring the Cockpit<a class="headerlink" href="#configuring-the-cockpit" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">19</span><span class="c1"># Create Cockpit and a plotter</span>
+<span class="hll"><span class="linenos">20</span><span class="n">cockpit</span> <span class="o">=</span> <span class="n">Cockpit</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">quantities</span><span class="o">=</span><span class="n">configuration</span><span class="p">(</span><span class="s2">&quot;full&quot;</span><span class="p">))</span>
+</span><span class="hll"><span class="linenos">21</span><span class="n">plotter</span> <span class="o">=</span> <span class="n">CockpitPlotter</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>Computation of the quantities and storing of the results are managed by the
+<a class="reference internal" href="../api/cockpit.html#cockpit.Cockpit" title="cockpit.Cockpit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cockpit</span></code></a> class. We have to pass the model parameters, and a
+list of quantities, which specify what should be tracked and when.</p>
+<p>Cockpit offers configurations with different computational complexity:
+<code class="docutils literal notranslate"><span class="pre">&quot;economy&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;business&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;full&quot;</span></code> (see also
+<a class="reference internal" href="../api/automod/cockpit.utils.configuration.configuration.html#cockpit.utils.configuration.configuration" title="cockpit.utils.configuration.configuration"><code class="xref py py-func docutils literal notranslate"><span class="pre">configuration()</span></code></a>). We will use the provided
+utility function to track all possible quantities.</p>
+</div>
+<div class="section" id="training-loop">
+<h2>Training Loop<a class="headerlink" href="#training-loop" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">26</span>    <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="c1"># forward pass</span>
+<span class="linenos">29</span>    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="linenos">30</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="linenos">31</span>    <span class="n">losses</span> <span class="o">=</span> <span class="n">individual_loss_fn</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>    <span class="c1"># backward pass</span>
+<span class="hll"><span class="linenos">34</span>    <span class="k">with</span> <span class="n">cockpit</span><span class="p">(</span>
+</span><span class="hll"><span class="linenos">35</span>        <span class="n">global_step</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">36</span>        <span class="n">info</span><span class="o">=</span><span class="p">{</span>
+</span><span class="hll"><span class="linenos">37</span>            <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+</span><span class="hll"><span class="linenos">38</span>            <span class="s2">&quot;individual_losses&quot;</span><span class="p">:</span> <span class="n">losses</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">39</span>            <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">40</span>            <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="n">opt</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">41</span>        <span class="p">},</span>
+</span><span class="hll"><span class="linenos">42</span>    <span class="p">):</span>
+</span><span class="hll"><span class="linenos">43</span>        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">create_graph</span><span class="o">=</span><span class="n">cockpit</span><span class="o">.</span><span class="n">create_graph</span><span class="p">(</span><span class="n">global_step</span><span class="p">))</span>
+</span></pre></div>
+</div>
+<p>Training itself is straightforward. At every iteration, we draw a mini-batch,
+compute the model predictions and losses, then perform a backward pass and update
+the parameters.</p>
+<p>The main differences with <strong>Cockpit</strong> is that the backward call is surrounded by
+a <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">cockpit(...)</span></code> context, that manages the extra computations during the
+backward pass. Additional information required by some quantities is passed
+through the <code class="docutils literal notranslate"><span class="pre">info</span></code> argument.</p>
+</div>
+<div class="section" id="plotting-the-cockpit">
+<h2>Plotting the Cockpit<a class="headerlink" href="#plotting-the-cockpit" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">49</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step: </span><span class="si">{</span><span class="n">global_step</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> | Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">50</span>
+<span class="hll"><span class="linenos">51</span>    <span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cockpit</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>At any point during the training, here we do it in every single iteration, the
+computed metrics can be visualized by calling the plotting functionality of the
+<a class="reference internal" href="../api/plotter.html#cockpit.CockpitPlotter" title="cockpit.CockpitPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">CockpitPlotter</span></code></a> via <a class="reference internal" href="../api/plotter.html#cockpit.CockpitPlotter.plot" title="cockpit.CockpitPlotter.plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">53</span>    <span class="k">if</span> <span class="n">global_step</span> <span class="o">&gt;=</span> <span class="n">max_steps</span><span class="p">:</span>
+<span class="linenos">54</span>        <span class="k">break</span>
+<span class="linenos">55</span>
+<span class="hll"><span class="linenos">56</span><span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cockpit</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>After the final iteration, we will again show the full <strong>Cockpit</strong> view. The option
+<code class="docutils literal notranslate"><span class="pre">block=True</span></code> allows us to pause our program and inspect the plot for as long as
+we want.
+The final <strong>Cockpit</strong> status screen will look similar to this:</p>
+<img alt="Preview Cockpit Basic Example" src="../_images/01_basic_fmnist.png" />
+<p>Simply closing the plotting window ends the program and this example.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="02_advanced_fmnist.html" class="btn btn-neutral float-right" title="Advanced Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="Cockpit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

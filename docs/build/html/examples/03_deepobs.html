@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>DeepOBS Example &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Good to Know" href="../introduction/good_to_know.html" />
+    <link rel="prev" title="Advanced Example" href="02_advanced_fmnist.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>DeepOBS Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/03_deepobs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deepobs-example">
+<h1>DeepOBS Example<a class="headerlink" href="#deepobs-example" title="Permalink to this headline">¶</a></h1>
+<p><strong>Cockpit</strong> easily integrates with and can be used together with
+<a class="reference external" href="https://deepobs.github.io/">DeepOBS</a>.
+This will directly give you access to dozens of deep learning problems
+that you can explore with <strong>Cockpit</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example requires a <a class="reference external" href="https://github.com/fsschneider/DeepOBS/">DeepOBS</a>
+and a <a class="reference external" href="https://github.com/f-dangel/backobs">BackOBS</a> installation.
+You can install them by running</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="s1">&#39;git+https://github.com/fsschneider/DeepOBS.git@develop#egg=deepobs&#39;</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="s1">&#39;git+https://github.com/f-dangel/backobs.git@master#egg=backobs&#39;</span>
+</pre></div>
+</div>
+<p>Note, that currently, only the 1.2.0 beta version of DeepOBS supports PyTorch
+which will be installed by the above command.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the following example, we will use an additional <a class="reference download internal" download="" href="../_downloads/de59685912c203c1693e970dc6154723/_utils_deepobs.py"><code class="xref download docutils literal notranslate"><span class="pre">utility</span> <span class="pre">file</span></code></a> which automatically incorporates <strong>Cockpit</strong>
+with the DeepOBS training loop.</p>
+</div>
+<p>Having the two <a class="reference external" href="https://github.com/h1j9d3q/cockpit/tree/master/examples">utility files from our repository</a> we can run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python 03_deepobs.py
+</pre></div>
+</div>
+<p>which exectues the following <a class="reference download internal" download="" href="../_downloads/4592145abcdf74b68eb323f960f555b9/03_deepobs.py"><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">script</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="sd">&quot;&quot;&quot;An example of using Cockpit with DeepOBS.&quot;&quot;&quot;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">_utils_deepobs</span> <span class="kn">import</span> <span class="n">DeepOBSRunner</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">_utils_examples</span> <span class="kn">import</span> <span class="n">get_logpath</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">SGD</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="kn">from</span> <span class="nn">cockpit.utils</span> <span class="kn">import</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">schedules</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">SGD</span>
+<span class="linenos">10</span><span class="n">hyperparams</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">}}</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="n">track_schedule</span> <span class="o">=</span> <span class="n">schedules</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">plot_schedule</span> <span class="o">=</span> <span class="n">schedules</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">quantities</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">configuration</span><span class="p">(</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">track_schedule</span><span class="o">=</span><span class="n">track_schedule</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">runner</span> <span class="o">=</span> <span class="n">DeepOBSRunner</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">hyperparams</span><span class="p">,</span> <span class="n">quantities</span><span class="p">,</span> <span class="n">plot_schedule</span><span class="o">=</span><span class="n">plot_schedule</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="k">def</span> <span class="nf">const_schedule</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+<span class="linenos">20</span>    <span class="sd">&quot;&quot;&quot;Constant learning rate schedule.&quot;&quot;&quot;</span>
+<span class="linenos">21</span>    <span class="k">return</span> <span class="k">lambda</span> <span class="n">epoch</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="linenos">25</span>    <span class="n">testproblem</span><span class="o">=</span><span class="s2">&quot;quadratic_deep&quot;</span><span class="p">,</span>
+<span class="linenos">26</span>    <span class="n">output_dir</span><span class="o">=</span><span class="n">get_logpath</span><span class="p">(),</span>
+<span class="linenos">27</span>    <span class="n">l2_reg</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="linenos">28</span>    <span class="n">num_epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="linenos">29</span>    <span class="n">show_plots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">30</span>    <span class="n">save_plots</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">31</span>    <span class="n">save_final_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos">32</span>    <span class="n">save_animation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">33</span>    <span class="n">lr_schedule</span><span class="o">=</span><span class="n">const_schedule</span><span class="p">,</span>
+<span class="linenos">34</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Just like before, we can define a list of quantities (here we use the
+<a class="reference internal" href="../api/utils.html#module-cockpit.utils.configuration" title="cockpit.utils.configuration"><code class="xref py py-mod docutils literal notranslate"><span class="pre">configuration</span></code></a> <code class="docutils literal notranslate"><span class="pre">&quot;full&quot;</span></code>) that we this time pass to the
+<code class="docutils literal notranslate"><span class="pre">DeepOBSRunner</span></code>. It will automatically pass it on to the <a class="reference internal" href="../api/cockpit.html#cockpit.Cockpit" title="cockpit.Cockpit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cockpit</span></code></a>.</p>
+<p>With the arguments of the <code class="docutils literal notranslate"><span class="pre">runner.run()</span></code> function, we can define whether we want
+the <a class="reference internal" href="../api/plotter.html#cockpit.CockpitPlotter" title="cockpit.CockpitPlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">CockpitPlotter</span></code></a> plots to show and/or be stored.</p>
+<p>The <strong>Cockpit</strong> will show a status screen every few epochs, as well as writing to
+a logfile and saving its final plot, after training completed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python 03_deepobs.py
+
+<span class="go">********************************</span>
+<span class="go">Evaluating after 0 of 15 epochs...</span>
+<span class="go">TRAIN: loss 7.0372</span>
+<span class="go">VALID: loss 7.07626</span>
+<span class="go">TEST: loss 7.06894</span>
+<span class="go">********************************</span>
+<span class="go">[cockpit|plot] Showing current Cockpit.</span>
+<span class="go">********************************</span>
+<span class="go">Evaluating after 1 of 15 epochs...</span>
+<span class="go">TRAIN: loss 7.00634</span>
+<span class="go">VALID: loss 7.01242</span>
+<span class="go">TEST: loss 7.00535</span>
+<span class="go">********************************</span>
+<span class="go">********************************</span>
+<span class="go">Evaluating after 2 of 15 epochs...</span>
+<span class="go">TRAIN: loss 6.98335</span>
+<span class="go">VALID: loss 6.94937</span>
+<span class="go">TEST: loss 6.94255</span>
+<span class="go">********************************</span>
+<span class="go">[cockpit|plot] Showing current Cockpit.</span>
+
+<span class="go">[...]</span>
+</pre></div>
+</div>
+<p>The fifty epochs on the <a class="reference external" href="https://deepobs.readthedocs.io/en/v1.2.0-beta0_a/api/pytorch/testproblems/quadratic/quadratic_deep.html">deep quadratic</a>
+problem will result in a <strong>Cockpit</strong> plot similar to this:</p>
+<img alt="Preview Cockpit DeepOBS Example" src="../_images/03_deepobs.png" />
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../introduction/good_to_know.html" class="btn btn-neutral float-right" title="Good to Know" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="02_advanced_fmnist.html" class="btn btn-neutral float-left" title="Advanced Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

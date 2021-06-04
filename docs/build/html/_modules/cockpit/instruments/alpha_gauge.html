@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.instruments.alpha_gauge &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.instruments.alpha_gauge</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.instruments.alpha_gauge</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Alpha Gauge.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+<span class="kn">from</span> <span class="nn">cockpit.instruments.utils_instruments</span> <span class="kn">import</span> <span class="n">_beautify_plot</span><span class="p">,</span> <span class="n">check_data</span>
+
+
+<div class="viewcode-block" id="alpha_gauge"><a class="viewcode-back" href="../../../api/automod/cockpit.instruments.alpha_gauge.html#cockpit.instruments.alpha_gauge">[docs]</a><span class="k">def</span> <span class="nf">alpha_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">gridspec</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Showing a distribution of the alpha values.</span>
+
+<span class="sd">    This alpha instruments provides a summary of the alpha values of all tracked</span>
+<span class="sd">    iterations (shown in gray) as well as the last 10% of them (shown in blue).</span>
+
+<span class="sd">    The alpha value uses loss and gradient information to build a noise-informed</span>
+<span class="sd">    univariate quadratic approximation of the loss function to assess to which</span>
+<span class="sd">    point on this parabola the optimizer moves. The parabola (shown in orange) is</span>
+<span class="sd">    always normalized such that the starting point of each iteration is at</span>
+<span class="sd">    :math:`x=-1`. If the optimzer takes a single step to the local minimum (e.g.</span>
+<span class="sd">    the valley floor) it would be indicated by an :math:`\alpha` value of :math:`0`.</span>
+<span class="sd">    Analogously, taking a step to the exact opposite side of the valley, will be</span>
+<span class="sd">    descrbied by :math:`\alpha=1`.</span>
+
+<span class="sd">    The instruments shows a histogram and a distribution fit of all alpha values,</span>
+<span class="sd">    as well as the last 10% of tracked iterations. The mean values of both distributions</span>
+<span class="sd">    are also shown in the figure&#39;s legend.</span>
+
+<span class="sd">    .. image:: ../../_static/instrument_previews/Alpha.png</span>
+<span class="sd">        :alt: Preview Alpha Gauge</span>
+
+<span class="sd">    **Requires**</span>
+
+<span class="sd">    This instrument requires data from the :class:`~cockpit.quantities.Alpha`</span>
+<span class="sd">    quantity class.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        self (CockpitPlotter): The cockpit plotter requesting this instrument.</span>
+<span class="sd">        fig (matplotlib.figure.Figure): Figure of the Cockpit.</span>
+<span class="sd">        gridspec (matplotlib.gridspec.GridSpec): GridSpec where the instrument</span>
+<span class="sd">            should be placed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Plot Alpha Distribution</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Alpha Distribution&quot;</span>
+
+    <span class="c1"># Check if the required data is available, else skip this instrument</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">]</span>
+    <span class="n">plot_possible</span> <span class="o">=</span> <span class="n">check_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">,</span> <span class="n">requires</span><span class="p">,</span> <span class="n">min_elements</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">plot_possible</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Couldn&#39;t get the required data for the &quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot; instrument&quot;</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;xlabel&quot;</span><span class="p">:</span> <span class="s2">&quot;Local Step Length&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ylabel&quot;</span><span class="p">:</span> <span class="s2">&quot;Stand. Loss&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s2">&quot;xlim&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span>
+        <span class="s2">&quot;ylim&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">],</span>
+        <span class="s2">&quot;fontweight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bg_color_instruments</span><span class="p">,</span>
+        <span class="s2">&quot;zero_lines&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+    <span class="p">}</span>
+    <span class="n">color_all</span> <span class="o">=</span> <span class="s2">&quot;gray&quot;</span>
+    <span class="n">color_last</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span>
+    <span class="n">color_parabola</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_color</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gridspec</span><span class="p">)</span>
+
+    <span class="c1"># Plot unit parabola</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;xlim&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;xlim&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_parabola</span><span class="p">)</span>
+
+    <span class="n">_beautify_plot</span><span class="p">(</span><span class="o">**</span><span class="n">plot_args</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="c1"># Alpha Histogram</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="c1"># All alphas</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span>
+        <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_all</span><span class="p">,</span>
+        <span class="n">kde_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;cut&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="p">(</span><span class="n">mu_all</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+    <span class="c1"># Last 10% alphas</span>
+    <span class="n">len_last_elements</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">len_last_elements</span><span class="p">),</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span>
+        <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_last</span><span class="p">,</span>
+        <span class="n">kde_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;cut&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;last 10 %&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">len_last_elements</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">mu_last</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">mu_last</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">len_last_elements</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Manually beautify the plot:</span>
+    <span class="c1"># Adding Zone Lines</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ababba&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ababba&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ababba&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ababba&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ababba&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Labels</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Local step length $\alpha$&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\alpha$ density&quot;</span><span class="p">)</span>
+    <span class="n">_add_indicators</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">mu_last</span><span class="p">,</span> <span class="n">plot_args</span><span class="p">,</span> <span class="n">color_all</span><span class="p">,</span> <span class="n">color_last</span><span class="p">,</span> <span class="n">len_last_elements</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Legend</span>
+    <span class="c1"># Get the fitted parameters used by sns</span>
+    <span class="n">lines2</span><span class="p">,</span> <span class="n">labels2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;all&quot;</span> <span class="ow">in</span> <span class="n">lab</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mu_all</span><span class="p">):</span>
+            <span class="n">labels2</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">lab</span> <span class="o">+</span> <span class="s2">&quot; ($\mu=$</span><span class="si">{0:.2f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mu_all</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
+        <span class="k">if</span> <span class="s2">&quot;last 10 %&quot;</span> <span class="ow">in</span> <span class="n">lab</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mu_last</span><span class="p">):</span>
+            <span class="n">labels2</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">lab</span> <span class="o">+</span> <span class="s2">&quot; ($\mu=$</span><span class="si">{0:.2f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mu_last</span><span class="p">)</span>  <span class="c1"># noqa: W605</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines2</span><span class="p">,</span> <span class="n">labels2</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_add_indicators</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">mu_last</span><span class="p">,</span> <span class="n">plot_args</span><span class="p">,</span> <span class="n">color_all</span><span class="p">,</span> <span class="n">color_last</span><span class="p">,</span> <span class="n">len_last_elements</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adds indicators that some alpha values were outside of ploting range.&quot;&quot;&quot;</span>
+    <span class="c1"># Add indicator for outliers</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mu_last</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">len_last_elements</span><span class="p">))</span>
+        <span class="o">&gt;</span> <span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;xlim&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color_last</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;xlim&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color_all</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mu_last</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">len_last_elements</span><span class="p">))</span>
+        <span class="o">&lt;</span> <span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;xlim&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color_last</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[</span><span class="s2">&quot;Alpha&quot;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;xlim&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color_all</span><span class="p">),</span>
+        <span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

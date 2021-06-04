@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.instruments.hyperparameter_gauge &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.instruments.hyperparameter_gauge</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.instruments.hyperparameter_gauge</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Hyperparameter Gauge.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">cockpit.instruments.utils_instruments</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_add_last_value_to_legend</span><span class="p">,</span>
+    <span class="n">_beautify_plot</span><span class="p">,</span>
+    <span class="n">check_data</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="hyperparameter_gauge"><a class="viewcode-back" href="../../../api/automod/cockpit.instruments.hyperparameter_gauge.html#cockpit.instruments.hyperparameter_gauge">[docs]</a><span class="k">def</span> <span class="nf">hyperparameter_gauge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">gridspec</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Hyperparameter gauge, currently showing the learning rate over time.</span>
+
+<span class="sd">    This instrument visualizes the hyperparameters values over the course of the</span>
+<span class="sd">    training. Currently, it shows the learning rate, the most likely parameter to</span>
+<span class="sd">    be adapted during training. The current learning rate is additionally shown</span>
+<span class="sd">    in the figure&#39;s legend.</span>
+
+<span class="sd">    **Preview**</span>
+
+<span class="sd">    .. image:: ../../_static/instrument_previews/Hyperparameters.png</span>
+<span class="sd">        :alt: Preview Hyperparameter Gauge</span>
+
+<span class="sd">    **Requires**</span>
+
+<span class="sd">    This instrument requires the learning rate data passed via the</span>
+<span class="sd">    :func:`cockpit.Cockpit.log()` method.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        self (CockpitPlotter): The cockpit plotter requesting this instrument.</span>
+<span class="sd">        fig (matplotlib.figure.Figure): Figure of the Cockpit.</span>
+<span class="sd">        gridspec (matplotlib.gridspec.GridSpec): GridSpec where the instrument should be</span>
+<span class="sd">            placed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Plot Trace vs iteration</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Hyperparameters&quot;</span>
+
+    <span class="c1"># Check if the required data is available, else skip this instrument</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;learning_rate&quot;</span><span class="p">]</span>
+    <span class="n">plot_possible</span> <span class="o">=</span> <span class="n">check_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">,</span> <span class="n">requires</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">plot_possible</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Couldn&#39;t get the required data for the &quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot; instrument&quot;</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gridspec</span><span class="p">)</span>
+
+    <span class="n">clean_learning_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracking_data</span><span class="p">[[</span><span class="s2">&quot;iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;learning_rate&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="c1"># Plot Settings</span>
+    <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;iteration&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">clean_learning_rate</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">plot_args</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">secondary_color</span>
+    <span class="p">)</span>
+
+    <span class="n">_beautify_plot</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">xlabel</span><span class="o">=</span><span class="n">plot_args</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">,</span>
+        <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;symlog&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_log_iter</span> <span class="k">else</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">xlim</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span>
+        <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_color_instruments2</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">_add_last_value_to_legend</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

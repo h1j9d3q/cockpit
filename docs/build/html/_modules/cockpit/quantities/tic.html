@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.quantities.tic &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.quantities.tic</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.quantities.tic</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Quantity for Takeuchi Information Criterion (TIC).&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">backpack</span> <span class="kn">import</span> <span class="n">extensions</span>
+
+<span class="kn">from</span> <span class="nn">cockpit.context</span> <span class="kn">import</span> <span class="n">get_batch_size</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.quantity</span> <span class="kn">import</span> <span class="n">SingleStepQuantity</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.utils_transforms</span> <span class="kn">import</span> <span class="n">BatchGradTransformsHook_SumGradSquared</span>
+
+
+<span class="k">class</span> <span class="nc">TIC</span><span class="p">(</span><span class="n">SingleStepQuantity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for different Takeuchi Information Criterion approximations.</span>
+
+<span class="sd">    Note: Takeuchi Information criterion (TIC) rediscovered by</span>
+
+<span class="sd">        - Thomas, V., et al.</span>
+<span class="sd">          On the interplay between noise and curvature and its effect on</span>
+<span class="sd">          optimization and generalization (2019).</span>
+<span class="sd">          https://arxiv.org/abs/1906.07774</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">extensions_from_str</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;diag_h&quot;</span><span class="p">:</span> <span class="n">extensions</span><span class="o">.</span><span class="n">DiagHessian</span><span class="p">,</span>
+        <span class="s2">&quot;diag_ggn_exact&quot;</span><span class="p">:</span> <span class="n">extensions</span><span class="o">.</span><span class="n">DiagGGNExact</span><span class="p">,</span>
+        <span class="s2">&quot;diag_ggn_mc&quot;</span><span class="p">:</span> <span class="n">extensions</span><span class="o">.</span><span class="n">DiagGGNMC</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">track_schedule</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">curvature</span><span class="o">=</span><span class="s2">&quot;diag_h&quot;</span><span class="p">,</span>
+        <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization sets the tracking schedule &amp; creates the output dict.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            The curvature options ``&quot;diag_h&quot;`` and ``&quot;diag_ggn_exact&quot;`` are more</span>
+<span class="sd">            expensive than ``&quot;diag_ggn_mc&quot;``, but more precise. For a classification</span>
+<span class="sd">            task with ``C`` classes, the former require that ``C`` times more</span>
+<span class="sd">            information be backpropagated through the computation graph.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            track_schedule (callable): Function that maps the ``global_step``</span>
+<span class="sd">                to a boolean, which determines if the quantity should be computed.</span>
+<span class="sd">            verbose (bool, optional): Turns on verbose mode. Defaults to ``False``.</span>
+<span class="sd">            curvature (str): Which diagonal curvature approximation should be used.</span>
+<span class="sd">                Options are ``&quot;diag_h&quot;``, ``&quot;diag_ggn_exact&quot;``, ``&quot;diag_ggn_mc&quot;``.</span>
+<span class="sd">            epsilon (float): Stabilization constant. Defaults to ``1e-7``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_schedule</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_curvature</span> <span class="o">=</span> <span class="n">curvature</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
+
+    <span class="k">def</span> <span class="nf">extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extensions required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: If curvature string has unknown associated extension.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: (Potentially empty) list with required BackPACK quantities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">BatchGrad</span><span class="p">())</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extensions_from_str</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_curvature</span><span class="p">]())</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">available</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extensions_from_str</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">. Available: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ext</span>
+
+    <span class="k">def</span> <span class="nf">extension_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extension hooks required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            [callable]: List of required BackPACK extension hooks for the current</span>
+<span class="sd">                iteration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="n">hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BatchGradTransformsHook_SumGradSquared</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">hooks</span>
+
+
+<div class="viewcode-block" id="TICDiag"><a class="viewcode-back" href="../../../api/automod/cockpit.quantities.TICDiag.html#cockpit.quantities.TICDiag">[docs]</a><span class="k">class</span> <span class="nc">TICDiag</span><span class="p">(</span><span class="n">TIC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Quantity class for tracking the TIC using diagonal curvature approximation.</span>
+
+<span class="sd">    The diagonal curvature approximation provide cheap inversion.</span>
+
+<span class="sd">    Note: Takeuchi Information criterion (TIC) rediscovered by</span>
+
+<span class="sd">        - Thomas, V., et al.</span>
+<span class="sd">          On the interplay between noise and curvature and its effect on</span>
+<span class="sd">          optimization and generalization (2019).</span>
+<span class="sd">          https://arxiv.org/abs/1906.07774</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the TICDiag using a diagonal curvature approximation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: TIC computed using a diagonal curvature approximation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sum_grad_squared</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_sum_grad_squared_via_batch_grad_transforms</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">,</span> <span class="n">aggregate</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">curvature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_diag_curvature</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_curvature</span><span class="p">,</span> <span class="n">aggregate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">get_batch_size</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">batch_size</span> <span class="o">*</span> <span class="n">sum_grad_squared</span> <span class="o">/</span> <span class="p">(</span><span class="n">curvature</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epsilon</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TICTrace"><a class="viewcode-back" href="../../../api/automod/cockpit.quantities.TICTrace.html#cockpit.quantities.TICTrace">[docs]</a><span class="k">class</span> <span class="nc">TICTrace</span><span class="p">(</span><span class="n">TIC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Quantity class for the TIC using the trace of curvature and gradient covariance.</span>
+
+<span class="sd">    Note: Takeuchi Information criterion (TIC) rediscovered by</span>
+
+<span class="sd">        - Thomas, V., et al.</span>
+<span class="sd">          On the interplay between noise and curvature and its effect on</span>
+<span class="sd">          optimization and generalization (2019).</span>
+<span class="sd">          https://arxiv.org/abs/1906.07774</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the TICTrace using a trace approximation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: TIC computed using a trace approximation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sum_grad_squared</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_sum_grad_squared_via_batch_grad_transforms</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">,</span> <span class="n">aggregate</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">curvature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_diag_curvature</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_curvature</span><span class="p">,</span> <span class="n">aggregate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">get_batch_size</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">batch_size</span> <span class="o">*</span> <span class="n">sum_grad_squared</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">curvature</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epsilon</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

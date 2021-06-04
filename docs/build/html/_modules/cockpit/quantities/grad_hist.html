@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.quantities.grad_hist &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.quantities.grad_hist</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.quantities.grad_hist</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Histograms of individual gradient transformations.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">backpack.extensions</span> <span class="kn">import</span> <span class="n">BatchGrad</span>
+
+<span class="kn">from</span> <span class="nn">cockpit.quantities.bin_adaptation</span> <span class="kn">import</span> <span class="n">NoAdaptation</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.quantity</span> <span class="kn">import</span> <span class="n">SingleStepQuantity</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.utils_hists</span> <span class="kn">import</span> <span class="n">histogram2d_opt</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.utils_transforms</span> <span class="kn">import</span> <span class="n">BatchGradTransformsHook</span>
+
+
+<div class="viewcode-block" id="GradHist1d"><a class="viewcode-back" href="../../../api/automod/cockpit.quantities.GradHist1d.html#cockpit.quantities.GradHist1d">[docs]</a><span class="k">class</span> <span class="nc">GradHist1d</span><span class="p">(</span><span class="n">SingleStepQuantity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Quantity class for one-dimensional histograms of indivdual gradient elements.</span>
+
+<span class="sd">    The histograms consider individual gradient elements, with outliers being</span>
+<span class="sd">    clipped to lie in the visible range.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">track_schedule</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">adapt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization sets the tracking schedule &amp; creates the output dict.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            track_schedule (callable): Function that maps the ``global_step``</span>
+<span class="sd">                to a boolean, which determines if the quantity should be computed.</span>
+<span class="sd">            verbose (bool, optional): Turns on verbose mode. Defaults to ``False``.</span>
+<span class="sd">            bins (int): Number of bins</span>
+<span class="sd">            range ([float, float], optional): Lower and upper limit of the bin range.</span>
+<span class="sd">                Default: ``(-2, 2)``.</span>
+<span class="sd">            adapt (BinAdaptation): Policy for adapting the bin limits. Per default,</span>
+<span class="sd">                no adaptation is performed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_schedule</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_range</span> <span class="o">=</span> <span class="nb">range</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span> <span class="o">=</span> <span class="n">bins</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span> <span class="o">=</span> <span class="n">NoAdaptation</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span> <span class="k">if</span> <span class="n">adapt</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">adapt</span>
+
+    <span class="k">def</span> <span class="nf">extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extensions required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: (Potentially empty) list with required BackPACK quantities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BatchGrad</span><span class="p">())</span>
+
+        <span class="n">ext</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span><span class="o">.</span><span class="n">extensions</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ext</span>
+
+    <span class="k">def</span> <span class="nf">extension_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extension hooks required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            [callable]: List of required BackPACK extension hooks for the current</span>
+<span class="sd">                iteration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="n">hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">BatchGradTransformsHook</span><span class="p">(</span><span class="n">transforms</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;hist_1d&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_histogram</span><span class="p">})</span>
+            <span class="p">)</span>
+
+        <span class="n">hooks</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span><span class="o">.</span><span class="n">extension_hooks</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">hooks</span>
+
+    <span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform scheduled computations and store result.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">)</span>
+
+        <span class="c1"># update limits</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+                <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Evaluate the individual gradient histogram.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Entry ``&#39;hist&#39;`` holds the histogram, entry ``&#39;edges&#39;`` holds</span>
+<span class="sd">                the bin limits.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hist</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad_batch_transforms</span><span class="p">[</span><span class="s2">&quot;hist_1d&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad_batch_transforms</span><span class="p">[</span><span class="s2">&quot;hist_1d&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;hist&quot;</span><span class="p">:</span> <span class="n">hist</span><span class="p">,</span> <span class="s2">&quot;edges&quot;</span><span class="p">:</span> <span class="n">edges</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_compute_histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_grad</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transform individual gradients into histogram data.</span>
+
+<span class="sd">        This function is be applied onto every parameter&#39;s individual gradient</span>
+<span class="sd">        during backpropagation. If `p` denotes the parameter, then the return</span>
+<span class="sd">        value is stored in the `&quot;hist&quot;` field of `p.grad_batch_transforms`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch_grad (torch.Tensor): Individual gradient of a parameter `p`. If</span>
+<span class="sd">                `p` is of shape `(*)`, the individual gradients have shape `(N, *)`,</span>
+<span class="sd">                where `N` denotes the batch size.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (torch.Tensor, torch.Tensor): First tensor represents histogram counts,</span>
+<span class="sd">                second tensor are bin edges. Both are on the input&#39;s device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># NOTE ``batch_grad`` is 1/B ∇ℓᵢ so we need to compensate the 1/B.</span>
+        <span class="c1"># Rescale histogram limits instead of tensor to save memory</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">batch_grad</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span>
+        <span class="n">start_scaled</span><span class="p">,</span> <span class="n">end_scaled</span> <span class="o">=</span> <span class="n">start</span> <span class="o">/</span> <span class="n">B</span><span class="p">,</span> <span class="n">end</span> <span class="o">/</span> <span class="n">B</span>
+        <span class="n">clamped</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">batch_grad</span><span class="p">,</span> <span class="n">start_scaled</span><span class="p">,</span> <span class="n">end_scaled</span><span class="p">)</span>
+
+        <span class="n">hist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">histc</span><span class="p">(</span><span class="n">clamped</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">start_scaled</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">end_scaled</span><span class="p">)</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">batch_grad</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">hist</span><span class="p">,</span> <span class="n">edges</span></div>
+
+
+<div class="viewcode-block" id="GradHist2d"><a class="viewcode-back" href="../../../api/automod/cockpit.quantities.GradHist2d.html#cockpit.quantities.GradHist2d">[docs]</a><span class="k">class</span> <span class="nc">GradHist2d</span><span class="p">(</span><span class="n">SingleStepQuantity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Quantity class for two-dimensional histograms over gradient and parameters.</span>
+
+<span class="sd">    Tracks two-dimensional histogram of individual gradient elements over</span>
+<span class="sd">    parameters. Individual gradient values are binned on the x-axis, parameter</span>
+<span class="sd">    values are binned on the y-axis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">track_schedule</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">bins</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+        <span class="nb">range</span><span class="o">=</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+        <span class="n">adapt</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">keep_individual</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the 2D Histogram of individual gradient elements over parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            track_schedule (callable): Function that maps the ``global_step``</span>
+<span class="sd">                to a boolean, which determines if the quantity should be computed.</span>
+<span class="sd">            verbose (bool, optional): Turns on verbose mode. Defaults to ``False``.</span>
+<span class="sd">            bins ([int, int]): Number of bins in x and y direction. Default:</span>
+<span class="sd">                ``(40, 50)``</span>
+<span class="sd">            range ([[float, float], [float, float]], optional): Bin limits in x and</span>
+<span class="sd">                y direction. Default ``((-1, 1), (-2, 2))``.</span>
+<span class="sd">            adapt ([BinAdaptation or None, BinAdaptation or None], optional): Policy</span>
+<span class="sd">                for adapting the bin limits in x and y direction. ``None`` indicates</span>
+<span class="sd">                no adaptation. Default value: ``(None, None)``.</span>
+<span class="sd">            keep_individual (bool, optional):  Whether to keep individual</span>
+<span class="sd">                parameter histograms. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_schedule</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span> <span class="o">=</span> <span class="n">bins</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span> <span class="o">=</span> <span class="p">[</span><span class="n">NoAdaptation</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">adapt</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keep_individual</span> <span class="o">=</span> <span class="n">keep_individual</span>
+
+    <span class="k">def</span> <span class="nf">extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extensions required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: (Potentially empty) list with required BackPACK quantities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BatchGrad</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">adapt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span><span class="p">:</span>
+            <span class="n">ext</span> <span class="o">+=</span> <span class="n">adapt</span><span class="o">.</span><span class="n">extensions</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ext</span>
+
+    <span class="k">def</span> <span class="nf">extension_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extension hooks required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            [callable]: List of required BackPACK extension hooks for the current</span>
+<span class="sd">                iteration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="n">hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BatchGradTransformsHook</span><span class="p">({</span><span class="s2">&quot;hist_2d&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_histogram</span><span class="p">}))</span>
+
+        <span class="k">for</span> <span class="n">adapt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span><span class="p">:</span>
+            <span class="n">hooks</span> <span class="o">+=</span> <span class="n">adapt</span><span class="o">.</span><span class="n">extension_hooks</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">hooks</span>
+
+    <span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform scheduled computations and store result.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">)</span>
+
+        <span class="c1"># update limits</span>
+        <span class="k">for</span> <span class="n">dim</span><span class="p">,</span> <span class="n">adapt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adapt</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">adapt</span><span class="o">.</span><span class="n">should_compute</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_range</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapt</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span>
+                    <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Aggregate histogram data over parameters and save to output.&quot;&quot;&quot;</span>
+        <span class="n">hist</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad_batch_transforms</span><span class="p">[</span><span class="s2">&quot;hist_2d&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad_batch_transforms</span><span class="p">[</span><span class="s2">&quot;hist_2d&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hist&quot;</span><span class="p">:</span> <span class="n">hist</span><span class="p">,</span> <span class="s2">&quot;edges&quot;</span><span class="p">:</span> <span class="n">edges</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_individual</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;param_groups&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+                <span class="n">hist</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">grad_batch_transforms</span><span class="p">[</span><span class="s2">&quot;hist_2d&quot;</span><span class="p">]</span>
+                <span class="n">hist</span> <span class="o">=</span> <span class="n">hist</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+                <span class="n">result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;param_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hist&quot;</span><span class="p">:</span> <span class="n">hist</span><span class="p">,</span> <span class="s2">&quot;edges&quot;</span><span class="p">:</span> <span class="n">edges</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_compute_histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_grad</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transform individual gradients and parameters into a 2d histogram.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch_grad (torch.Tensor): Individual gradient of a parameter `p`. If</span>
+<span class="sd">                `p` is of shape `(*)`, the individual gradients have shape `(N, *)`,</span>
+<span class="sd">                where `N` denotes the batch size.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (torch.Tensor, (torch.Tensor, torch.Tensor)): First tensor represents</span>
+<span class="sd">                histogram counts, second tuple holds the bin edges in x and y</span>
+<span class="sd">                direction. All are on the input&#39;s device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># NOTE ``batch_grad`` is 1/B ∇ℓᵢ so we need to compensate the 1/B</span>
+        <span class="c1"># Rescale histogram limits instead of tensor to save memory</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">batch_grad</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">range</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># gradient axis</span>
+        <span class="n">dim</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="p">[</span><span class="n">limit</span> <span class="o">/</span> <span class="n">B</span> <span class="k">for</span> <span class="n">limit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span><span class="p">[</span><span class="n">dim</span><span class="p">]]</span>
+        <span class="nb">range</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">])</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+        <span class="c1"># Histogram implementation does not include the limits, clip to bin center</span>
+        <span class="n">bin_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">lower</span><span class="p">)</span> <span class="o">/</span> <span class="n">bins</span>
+        <span class="n">batch_grad_clamped</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span>
+            <span class="n">batch_grad</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">lower</span> <span class="o">+</span> <span class="n">bin_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">upper</span> <span class="o">-</span> <span class="n">bin_size</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="p">)</span>
+
+        <span class="c1"># parameter axis</span>
+        <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+        <span class="nb">range</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">])</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+        <span class="c1"># Histogram implementation does not include the limits, clip to bin center</span>
+        <span class="n">bin_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">lower</span><span class="p">)</span> <span class="o">/</span> <span class="n">bins</span>
+        <span class="n">param_clamped</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span>
+            <span class="n">batch_grad</span><span class="o">.</span><span class="n">_param_weakref</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="nb">min</span><span class="o">=</span><span class="n">lower</span> <span class="o">+</span> <span class="n">bin_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nb">max</span><span class="o">=</span><span class="n">upper</span> <span class="o">-</span> <span class="n">bin_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># chunk computation to reduce histogram memory consumption (casts to long)</span>
+        <span class="n">max_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e8</span><span class="p">)</span>
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">batch_grad</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">//</span> <span class="n">max_size</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="n">hist</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">bg_clamped</span> <span class="ow">in</span> <span class="n">batch_grad_clamped</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">):</span>
+            <span class="n">chunk_hist</span><span class="p">,</span> <span class="p">(</span><span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hist_low_mem</span><span class="p">(</span>
+                <span class="n">bg_clamped</span><span class="p">,</span> <span class="n">param_clamped</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bins</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="nb">range</span>
+            <span class="p">)</span>
+            <span class="n">hist</span> <span class="o">=</span> <span class="n">chunk_hist</span> <span class="k">if</span> <span class="n">hist</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">hist</span> <span class="o">+</span> <span class="n">chunk_hist</span>
+
+        <span class="n">edge_x</span> <span class="o">*=</span> <span class="n">B</span>
+
+        <span class="k">return</span> <span class="n">hist</span><span class="p">,</span> <span class="p">(</span><span class="n">edge_x</span><span class="p">,</span> <span class="n">edge_y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__hist_low_mem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_grad</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="nb">range</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute histogram with memory-efficient strategy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch_grad (torch.Tensor): Individual gradients computed by BackPACK.</span>
+<span class="sd">            param (torch.Tensor): Parameter, clipped to the histogram range.</span>
+<span class="sd">            bins ([int, int]): Number of bins in x and y direction.</span>
+<span class="sd">            range ([[float, float], [float, float]]): Bin limits in x and</span>
+<span class="sd">                y direction.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (torch.Tensor, (torch.Tensor, torch.Tensor)): First tensor represents</span>
+<span class="sd">                histogram counts, second tuple holds the bin edges in x and y</span>
+<span class="sd">                direction. All are on the input&#39;s device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">histogram2d_opt</span><span class="p">(</span><span class="n">batch_grad</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="nb">range</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.cockpit &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.cockpit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.cockpit</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Cockpit.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">import</span> <span class="nn">json_tricks</span>
+<span class="kn">from</span> <span class="nn">backpack</span> <span class="kn">import</span> <span class="n">disable</span>
+<span class="kn">from</span> <span class="nn">backpack.extensions.backprop_extension</span> <span class="kn">import</span> <span class="n">BackpropExtension</span>
+
+<span class="kn">from</span> <span class="nn">cockpit</span> <span class="kn">import</span> <span class="n">quantities</span>
+<span class="kn">from</span> <span class="nn">cockpit.context</span> <span class="kn">import</span> <span class="n">BackwardCTX</span><span class="p">,</span> <span class="n">get_loss</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.quantity</span> <span class="kn">import</span> <span class="n">Quantity</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.utils_transforms</span> <span class="kn">import</span> <span class="n">BatchGradTransformsHook</span>
+
+
+<div class="viewcode-block" id="Cockpit"><a class="viewcode-back" href="../../api/cockpit.html#cockpit.Cockpit">[docs]</a><span class="k">class</span> <span class="nc">Cockpit</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cockpit class.&quot;&quot;&quot;</span>
+
+    <span class="n">BACKPACK_CONV_SAVE_MEMORY</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="sd">&quot;&quot;&quot;bool: Tell BackPACK to use a more memory-efficient</span>
+<span class="sd">            Jacobian-vector product algorithm for weights in convolution layers.</span>
+<span class="sd">            Default: ``True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">quantities</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a cockpit.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            params (iterable): List or sequence of parameters on which the quantities</span>
+<span class="sd">                will be evaluated. Every parameter must have ``require_grad = True``,</span>
+<span class="sd">                otherwise the computation cannot be executed.</span>
+<span class="sd">            quantities (list, optional): List of ``Quantity`` (instances) that will</span>
+<span class="sd">                be tracked. Defaults to None, which will use no quantities.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If not all passed parameters have ``required_grad=True``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got parameter with requires_grad=False: </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># initialize output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+
+        <span class="c1"># add quantities to cockpit</span>
+        <span class="k">if</span> <span class="n">quantities</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">quantities</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">quantities</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Cockpit.add"><a class="viewcode-back" href="../../api/cockpit.html#cockpit.Cockpit.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quantity</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add quantity to tracked quantities.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            quantity (cockpit.quantites.Quantity): The quantity to be added.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If passed quantity is not a ``cockpit.quantity``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">quantity</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Added quantities must be instances of Quantity. Got </span><span class="si">{</span><span class="n">quantity</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">quantity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Cockpit.create_graph"><a class="viewcode-back" href="../../api/cockpit.html#cockpit.Cockpit.create_graph">[docs]</a>    <span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return if computation graph should be kept for computing quantities.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): Current number of iteration.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: ``True`` if computation graph should be kept, else ``False``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">create_graph</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">custom_exts</span><span class="o">=</span><span class="p">()):</span>
+        <span class="sd">&quot;&quot;&quot;Collect BackPACK extensions required at current iteration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): Current number of iteration.</span>
+<span class="sd">            custom_exts (list or tuple): Custom BackPACK extensions that will be</span>
+<span class="sd">                computed on top.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of required BackPACK extensions for the current iteration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO A user could introduce a bug here by running an extension which is</span>
+        <span class="c1"># also required by one quantity, but uses different hyperparameters (for</span>
+        <span class="c1"># instance the user picks ``DiagGGNMC(mc_samples=2)`` the Hessian trace</span>
+        <span class="c1"># quantity uses ``DiagGGNMC(mc_samples=1)``.). Catching such a corner case</span>
+        <span class="c1"># requires hyperparameter comparison of extensions. Considering the large</span>
+        <span class="c1"># amount of required boilerplate, this is left for the future</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">custom_exts</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">:</span>
+            <span class="n">ext</span> <span class="o">+=</span> <span class="n">q</span><span class="o">.</span><span class="n">extensions</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="n">ext</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_duplicate_extensions</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ext</span>
+
+    <span class="k">def</span> <span class="nf">_get_extension_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Build BackPACK extension hook for the current iteration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): Current number of iteration.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            callable or None: BackPACK extension hook for the current iteration.</span>
+<span class="sd">                ``None`` indicates no hook.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">:</span>
+            <span class="n">hooks</span> <span class="o">+=</span> <span class="n">q</span><span class="o">.</span><span class="n">extension_hooks</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">BatchGradTransformsHook</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hooks</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hooks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">hook</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_batch_grad_transform_hooks</span><span class="p">(</span><span class="n">hooks</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">hook</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="o">*</span><span class="n">exts</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the backpack extensions that should be used in this iteration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): Current number of iteration.</span>
+<span class="sd">            *exts: Custom BackPACK extensions that will be computed on top.</span>
+<span class="sd">            info (dict): Dictionary that specifies additional information. Some</span>
+<span class="sd">                quantities require additional information that is overly difficult</span>
+<span class="sd">                to infer from a backward pass, like the individual losses.</span>
+<span class="sd">            debug (bool, optional): Enable debug mode.. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            backpack.backpack: BackPACK with the appropriate extensions, or the</span>
+<span class="sd">                backpack_disable_io context.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exts</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">e</span><span class="p">,</span> <span class="n">BackpropExtension</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;*exts must be tuple of backpack extensions. Got </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="s2">&quot;optimizer&quot;</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;optimizer&quot;</span><span class="p">])</span><span class="o">.</span><span class="vm">__name__</span>
+
+        <span class="k">return</span> <span class="n">BackwardCTX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">exts</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">protected_savefields</span><span class="o">=</span><span class="p">()):</span>
+        <span class="sd">&quot;&quot;&quot;Tracking all quantities.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): Current number of iteration.</span>
+<span class="sd">            protected_savefields ([str]): List of strings containing attribute names</span>
+<span class="sd">                of backpack extensions that will not be deleted after the backward pass</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">batch_loss</span> <span class="o">=</span> <span class="n">get_loss</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="n">before_cleanup</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">q</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">quantities</span><span class="o">.</span><span class="n">HessMaxEV</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">before_cleanup</span><span class="p">:</span>
+            <span class="n">q</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_free_backpack_buffers</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">protected_savefields</span><span class="p">)</span>
+
+        <span class="n">after_cleanup</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">q</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">quantities</span><span class="o">.</span><span class="n">HessMaxEV</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">with</span> <span class="n">disable</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">after_cleanup</span><span class="p">:</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_free_backpack_buffers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">protected_savefields</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Manually free quantities computed by BackPACK to save memory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): Current number of iteration.</span>
+<span class="sd">            protected_savefields ([str]): List of strings containing attribute</span>
+<span class="sd">                names of backpack extensions that will not be deleted after the</span>
+<span class="sd">                backward pass</span>
+<span class="sd">            verbose (bool, optional): Turns on verbose mode. Defaults to ``False``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Freeing BackPACK buffers&quot;</span><span class="p">)</span>
+
+        <span class="n">savefields</span> <span class="o">=</span> <span class="p">[</span><span class="n">ext</span><span class="o">.</span><span class="n">savefield</span> <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_extensions</span><span class="p">(</span><span class="n">global_step</span><span class="p">)]</span>
+
+        <span class="n">savefields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;grad_batch_transforms&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">savefields</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">protected_savefields</span><span class="p">:</span>
+                        <span class="nb">delattr</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;Deleting &#39;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&#39; from param of shape </span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_has_children</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">children</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_remove_module_io</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+        <span class="n">io_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;input0&quot;</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">io_fields</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+<div class="viewcode-block" id="Cockpit.log"><a class="viewcode-back" href="../../api/cockpit.html#cockpit.Cockpit.log">[docs]</a>    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">global_step</span><span class="p">,</span>
+        <span class="n">epoch_count</span><span class="p">,</span>
+        <span class="n">train_loss</span><span class="p">,</span>
+        <span class="n">valid_loss</span><span class="p">,</span>
+        <span class="n">test_loss</span><span class="p">,</span>
+        <span class="n">train_accuracy</span><span class="p">,</span>
+        <span class="n">valid_accuracy</span><span class="p">,</span>
+        <span class="n">test_accuracy</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Tracking function for quantities computed at every epoch.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): Current number of iteration/global step.</span>
+<span class="sd">            epoch_count (int): Current number of epoch.</span>
+<span class="sd">            train_loss (float): Loss on the train (eval) set.</span>
+<span class="sd">            valid_loss (float): Loss on the validation set.</span>
+<span class="sd">            test_loss (float): Loss on the test set.</span>
+<span class="sd">            train_accuracy (float): Accuracy on the train (eval) set.</span>
+<span class="sd">            valid_accuracy (float): Accuracy on the validation set.</span>
+<span class="sd">            test_accuracy (float): Accuracy on the test set.</span>
+<span class="sd">            learning_rate (float): Learning rate of the optimizer. We assume,</span>
+<span class="sd">                that the optimizer uses a single global learning rate, which is</span>
+<span class="sd">                used for all parameter groups.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Store inputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;epoch_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">epoch_count</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;train_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;valid_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">valid_loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;test_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_loss</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;train_accuracy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_accuracy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;valid_accuracy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">valid_accuracy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;test_accuracy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_accuracy</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">global_step</span><span class="p">][</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">learning_rate</span></div>
+
+<div class="viewcode-block" id="Cockpit.write"><a class="viewcode-back" href="../../api/cockpit.html#cockpit.Cockpit.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logpath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write tracked quantities to a json file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            logpath (str): Path to a log file without the ``.json`` suffix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logpath_with_suffix</span> <span class="o">=</span> <span class="n">logpath</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[cockpit] writing output to </span><span class="si">{</span><span class="n">logpath_with_suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">logpath_with_suffix</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">logpath_with_suffix</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+            <span class="n">json_tricks</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_output</span><span class="p">(),</span>
+                <span class="n">json_file</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">allow_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_update_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetch outputs from tracked quantities into ``self.output``.&quot;&quot;&quot;</span>
+        <span class="c1"># Update the cockpit with the outputs from the individual quantities</span>
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+            <span class="k">for</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">q</span><span class="o">.</span><span class="n">get_output</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">iteration</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="Cockpit.get_output"><a class="viewcode-back" href="../../api/cockpit.html#cockpit.Cockpit.get_output">[docs]</a>    <span class="k">def</span> <span class="nf">get_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a nested dictionary that stores the results of all tracked quantities.</span>
+
+<span class="sd">        First key corresponds to the iteration, second key is the quantity class name,</span>
+<span class="sd">        values represent the computational result of the quantity at that iteration.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cockpit = Cockpit(...)</span>
+<span class="sd">            &gt;&gt;&gt; # information tracked at iteration 3</span>
+<span class="sd">            &gt;&gt;&gt; global_step = 3</span>
+<span class="sd">            &gt;&gt;&gt; global_step_output = cockpit.get_output()[global_step]</span>
+<span class="sd">            &gt;&gt;&gt; # information tracked at iteration 3 by Hessian max eigenvalue quantity</span>
+<span class="sd">            &gt;&gt;&gt; key = &quot;HessMaxEV&quot;</span>
+<span class="sd">            &gt;&gt;&gt; max_ev_global_step_output = cockpit.output[global_step][key]</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Nested dictionary with the results of all tracked quantities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_output</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span></div>
+
+    <span class="k">def</span> <span class="nf">_process_duplicate_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove duplicate BackPACK extensions.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Two extensions are considered equal if they are of the same class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ext ([backpack.extensions]): A list of BackPACK extensions,</span>
+<span class="sd">                potentially containing duplicates.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            [backpack.extensions]: A list of unique BackPACK extensions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ext_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">no_duplicate_ext</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">ext</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ext_dict</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">no_duplicate_ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">ext_dict</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">no_duplicate_ext</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_merge_batch_grad_transform_hooks</span><span class="p">(</span><span class="n">batch_grad_transform_hooks</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Merge multiple ``BatchGradTransformHook``s, removing duplicate transforms.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Two transformations are identical if they have the same ``id``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch_grad_transform_hooks ([BatchGradTransformsHook]): List of</span>
+<span class="sd">                ``BatchGradTransformHook``s.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If there is a non-unique transform.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            BatchGradTransformsHook: Single transform that includes all transforms.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">_transforms</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">batch_grad_transform_hooks</span><span class="p">]</span>
+
+        <span class="n">key_function_pairs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">transforms</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">key_function_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="n">unique_keys</span> <span class="o">=</span> <span class="p">{</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">key_function_pairs</span><span class="p">}</span>
+        <span class="n">combined_transforms</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">unique_keys</span><span class="p">:</span>
+            <span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">key_function_pairs</span> <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">]</span>
+            <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Got non-unique transform functions with ids </span><span class="si">{</span><span class="n">ids</span><span class="si">}</span><span class="s2"> for key &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">combined_transforms</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">functions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">BatchGradTransformsHook</span><span class="p">(</span><span class="n">combined_transforms</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

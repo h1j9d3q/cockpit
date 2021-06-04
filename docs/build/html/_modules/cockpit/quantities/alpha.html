@@ -1,0 +1,883 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>cockpit.quantities.alpha &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../../../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/quantities.html">Quantities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>cockpit.quantities.alpha</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cockpit.quantities.alpha</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class for tracking the effective relative step size Alpha.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">backpack</span> <span class="kn">import</span> <span class="n">extensions</span>
+
+<span class="kn">from</span> <span class="nn">cockpit.context</span> <span class="kn">import</span> <span class="n">get_batch_size</span><span class="p">,</span> <span class="n">get_individual_losses</span><span class="p">,</span> <span class="n">get_optimizer</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.quantity</span> <span class="kn">import</span> <span class="n">TwoStepQuantity</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.utils_quantities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_layerwise_dot_product</span><span class="p">,</span>
+    <span class="n">_root_sum_of_squares</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">cockpit.quantities.utils_transforms</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BatchGradTransformsHook</span><span class="p">,</span>
+    <span class="n">get_first_n_alphabet</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">cockpit.utils.optim</span> <span class="kn">import</span> <span class="n">ComputeStep</span>
+
+
+<div class="viewcode-block" id="Alpha"><a class="viewcode-back" href="../../../api/automod/cockpit.quantities.Alpha.html#cockpit.quantities.Alpha">[docs]</a><span class="k">class</span> <span class="nc">Alpha</span><span class="p">(</span><span class="n">TwoStepQuantity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Alpha Quantity class for the normalized step length α.</span>
+
+<span class="sd">    The normalized step length α  uses a noise-aware quadratic loss landscape fit</span>
+<span class="sd">    to estimate whether current local steps over- or undershoot the local minimum.</span>
+
+<span class="sd">    The fit uses zero- and first-order information, including uncertainties, between</span>
+<span class="sd">    two consecutive iterations which are referred to as ``&#39;start&#39;`` and ``&#39;end&#39;``</span>
+<span class="sd">    point, respectively. This information needs to be projected onto the update</span>
+<span class="sd">    step.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        This quantity requires the optimizer be specified in the ``&#39;optimizer&#39;``</span>
+<span class="sd">        ``info`` entry of a ``cockpit(...)`` context.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        For SGD with default parameters the projections onto the search direction can</span>
+<span class="sd">        be performed during a backward pass without storing large tensors between start</span>
+<span class="sd">        and end point.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">SAVE_SHIFT</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="sd">&quot;&quot;&quot;int: Difference between iteration at which information is computed</span>
+<span class="sd">            versus iteration under which it is stored. For instance, if set to ``1``,</span>
+<span class="sd">            the information computed at iteration ``n + 1`` is saved under iteration</span>
+<span class="sd">            ``n``. Default: ``1``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">POINTS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;[str]:  Description of start and end point.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extensions required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: (Potentially empty) list with required BackPACK quantities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_start</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_end</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">BatchGrad</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">ext</span>
+
+    <span class="k">def</span> <span class="nf">extension_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of BackPACK extension hooks required for the computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            [callable]: List of required BackPACK extension hooks for the current</span>
+<span class="sd">                iteration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_start</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_end</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="ow">or</span> <span class="n">end</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__projection_with_backpack</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+                <span class="n">hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_project_with_backpack_start</span><span class="p">(</span><span class="n">global_step</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">end</span><span class="p">:</span>
+                <span class="n">hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_project_with_backpack_end</span><span class="p">(</span><span class="n">global_step</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">hooks</span>
+
+    <span class="k">def</span> <span class="nf">is_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return whether current iteration is start point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Whether ``global_step`` is a start point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_track_schedule</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">is_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return whether current iteration is end point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Whether ``global_step`` is an end point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_track_schedule</span><span class="p">(</span><span class="n">global_step</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVE_SHIFT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__projection_with_backpack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return whether the update step projection is computed through BackPACK.</span>
+
+<span class="sd">        Currently, this can only be done for SGD with default parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Truth value whether gradient projections and update length info</span>
+<span class="sd">                are computed with BackPACK.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">get_optimizer</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="n">computed</span> <span class="o">=</span> <span class="n">ComputeStep</span><span class="p">()</span><span class="o">.</span><span class="n">is_sgd_default_kwargs</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No &#39;optimizer&#39; handed in via info&quot;</span><span class="p">)</span>
+            <span class="n">computed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No update step implemented for optimizer&quot;</span><span class="p">)</span>
+            <span class="n">computed</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">computed</span>
+
+    <span class="k">def</span> <span class="nf">_project_with_backpack_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return hook that computes gradient info at start with known search direction.</span>
+
+<span class="sd">        We want to compute ``dᵀgᵢ / ||d||₂²`` where ``d`` is the search direction and</span>
+<span class="sd">        ``gᵢ`` are individual gradients. The information needs to be decomposed such</span>
+<span class="sd">        that it can later be aggregated over parameters. Hence, the following</span>
+<span class="sd">        operations are carried out for each parameter:</span>
+
+<span class="sd">        - Compute and cache ``d`` under ``&#39;update_start&#39;``</span>
+<span class="sd">        - Compute and cache ``dᵀgᵢ`` under ``&#39;update_dot_grad_batch_start&#39;``</span>
+
+<span class="sd">        Remaining computations are finished up in ``_project_with_backpack_finalize``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start_step (int): Iteration number of the start point.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            BatchGradTransform: Extension executed by BackPACK during a backward pass</span>
+<span class="sd">                to perform the gradient projections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">block_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_block_fn</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="n">start_step</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVE_SHIFT</span><span class="p">)</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">get_optimizer</span><span class="p">(</span><span class="n">start_step</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">hook</span><span class="p">(</span><span class="n">grad_batch</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Cache optimizer update and projected gradients.</span>
+
+<span class="sd">            Modifies ``self._cache``, creating entries ``update_start`` and</span>
+<span class="sd">            ``update_dot_grad_batch_start``.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                grad_batch (torch.Tensor): Result of BackPACK&#39;s ``BatchGrad``</span>
+<span class="sd">                    extension.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                dict: Empty dictionary.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">param_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">grad_batch</span><span class="o">.</span><span class="n">_param_weakref</span><span class="p">())</span>
+
+            <span class="n">search_dir</span> <span class="o">=</span> <span class="n">ComputeStep</span><span class="p">()</span><span class="o">.</span><span class="n">compute_update_step</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="p">[</span><span class="n">param_id</span><span class="p">])[</span>
+                <span class="n">param_id</span>
+            <span class="p">]</span>
+            <span class="c1"># L = ¹/ₙ ∑ᵢ ℓᵢ, BackPACK&#39;s BatchGrad computes ¹/ₙ ∇ℓᵢ, we have to rescale</span>
+            <span class="n">batch_size</span> <span class="o">=</span> <span class="n">get_batch_size</span><span class="p">(</span><span class="n">start_step</span><span class="p">)</span>
+            <span class="n">dot_products</span> <span class="o">=</span> <span class="n">batch_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">batched_dot_product</span><span class="p">(</span><span class="n">grad_batch</span><span class="p">,</span> <span class="n">search_dir</span><span class="p">)</span>
+
+            <span class="c1"># update or create cache for ``d``</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;update_start&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">update_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">update_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">update_dict</span><span class="p">[</span><span class="n">param_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">search_dir</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">update_dict</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+            <span class="c1"># update or create cache for ``dᵀgᵢ``</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;update_dot_grad_batch_start&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">update_dot_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">update_dot_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">update_dot_dict</span><span class="p">[</span><span class="n">param_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot_products</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">update_dot_dict</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="k">return</span> <span class="n">BatchGradTransformsHook</span><span class="p">({</span><span class="s2">&quot;_first_order_projections_start&quot;</span><span class="p">:</span> <span class="n">hook</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">_project_with_backpack_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return hook that computes gradient info at end with known search direction.</span>
+
+<span class="sd">        We want to compute ``dᵀgᵢ / ||d||₂²`` where ``d`` is the search direction at</span>
+<span class="sd">        the start and ``gᵢ`` are individual gradients at the end. The information needs</span>
+<span class="sd">        to be decomposed such that it can later be aggregated over parameters. Hence,</span>
+<span class="sd">        the following operations are carried out for each parameter:</span>
+
+<span class="sd">        - Compute and cache ``dᵀgᵢ`` under ``&#39;update_dot_grad_batch_end&#39;``</span>
+
+<span class="sd">        Remaining computations are finished up in ``_project_with_backpack_finalize``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            end_step (int): Iteration number of the end point.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            BatchGradTransform: Extension executed by BackPACK during a backward pass</span>
+<span class="sd">                to perform the gradient projections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">block_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_block_fn</span><span class="p">(</span><span class="n">end_step</span><span class="p">,</span> <span class="n">end_step</span><span class="p">)</span>
+        <span class="n">start_step</span> <span class="o">=</span> <span class="n">end_step</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVE_SHIFT</span>
+
+        <span class="k">def</span> <span class="nf">hook</span><span class="p">(</span><span class="n">grad_batch</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Project the end point gradients onto the start point&#39;s update direction.</span>
+
+<span class="sd">            Modifies ``self._cache``, creating entry ``update_dot_grad_batch_end``.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                grad_batch (torch.Tensor): Result of BackPACK&#39;s ``BatchGrad``</span>
+<span class="sd">                    extension.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                dict: Empty dictionary.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">param_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">grad_batch</span><span class="o">.</span><span class="n">_param_weakref</span><span class="p">())</span>
+
+            <span class="n">search_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;update_start&quot;</span><span class="p">)[</span><span class="n">param_id</span><span class="p">]</span>
+            <span class="c1"># L = ¹/ₙ ∑ᵢ ℓᵢ, BackPACK&#39;s BatchGrad computes ¹/ₙ ∇ℓᵢ, we have to rescale</span>
+            <span class="n">batch_size</span> <span class="o">=</span> <span class="n">get_batch_size</span><span class="p">(</span><span class="n">end_step</span><span class="p">)</span>
+            <span class="n">dot_products</span> <span class="o">=</span> <span class="n">batch_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">batched_dot_product</span><span class="p">(</span><span class="n">grad_batch</span><span class="p">,</span> <span class="n">search_dir</span><span class="p">)</span>
+
+            <span class="c1"># update or create cache for ``dᵀgᵢ``</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;update_dot_grad_batch_end&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">update_dot_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">end_step</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">update_dot_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">update_dot_dict</span><span class="p">[</span><span class="n">param_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot_products</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">end_step</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">update_dot_dict</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="k">return</span> <span class="n">BatchGradTransformsHook</span><span class="p">({</span><span class="s2">&quot;_first_order_projections_end&quot;</span><span class="p">:</span> <span class="n">hook</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">_compute_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform computations at start point (store info for α fit).</span>
+
+<span class="sd">        Modifies ``self._cache``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">until</span> <span class="o">=</span> <span class="n">global_step</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVE_SHIFT</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_0th_order_info</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">until</span><span class="p">)</span>
+
+        <span class="c1"># fall back to storing parameters and individual gradients at start/end</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__projection_with_backpack</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_1st_order_info</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">until</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_save_0th_order_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">until</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store 0ᵗʰ-order information about the objective in cache.</span>
+
+<span class="sd">        Modifies ``self._cache``, creating entries ``f_*`` and ``var_f_*``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+<span class="sd">            point (str): Description of point, ``&#39;start&#39;`` or ``&#39;end&#39;``.</span>
+<span class="sd">            until (int): Iteration number until which deletion from cache is blocked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">block_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_block_fn</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">until</span><span class="p">)</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="n">batch_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;f_</span><span class="si">{</span><span class="n">point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+        <span class="n">var_f</span> <span class="o">=</span> <span class="n">get_individual_losses</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;var_f_</span><span class="si">{</span><span class="n">point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">var_f</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_save_1st_order_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">until</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store information for projecting 1ˢᵗ-order info about the objective in cache.</span>
+
+<span class="sd">        This is the go-to approach if the update step at the start point +projections</span>
+<span class="sd">        cannot be computed automatically through BackPACK.</span>
+
+<span class="sd">        Modifies ``self._cache``, creating the fields ``params_*``, ``grad_*``, and</span>
+<span class="sd">        ``grad_batch_*``. Parameters are required to compute the update step, the</span>
+<span class="sd">        gradients are required to project them onto the step at a later stage.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+<span class="sd">            point (str): Description of point, ``&#39;start&#39;`` or ``&#39;end&#39;``.</span>
+<span class="sd">            until (int): Iteration number until which deletion from cache is blocked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">block_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_block_fn</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">until</span><span class="p">)</span>
+
+        <span class="n">params_dict</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">):</span> <span class="n">p</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;params_</span><span class="si">{</span><span class="n">point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+        <span class="n">grad_dict</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">):</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;grad_</span><span class="si">{</span><span class="n">point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">grad_dict</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+        <span class="c1"># L = ¹/ₙ ∑ᵢ ℓᵢ, BackPACK&#39;s BatchGrad computes ¹/ₙ ∇ℓᵢ, we have to rescale</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">get_batch_size</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+        <span class="n">grad_batch_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">):</span> <span class="n">batch_size</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">grad_batch</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span>
+            <span class="n">global_step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;grad_batch_</span><span class="si">{</span><span class="n">point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">grad_batch_dict</span><span class="p">,</span> <span class="n">block_fn</span>
+        <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_make_block_fn</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="n">end_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a function that blocks cache deletion in interval ``[start; end]``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start_step (int): Left boundary of blocked interval</span>
+<span class="sd">            end_step (int): Right boundary of blocked interval</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            callable: Block function that can be used as ``block_fn`` argument in</span>
+<span class="sd">                ``save_to_cache``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">block_fn</span><span class="p">(</span><span class="n">step</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Block deletion in ``[start; end]``.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                step (int): Iteration number.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: Whether deletion is blocked in the specified iteration</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="n">end_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">block_fn</span>
+
+    <span class="k">def</span> <span class="nf">_compute_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute and return α.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            global_step (int): The current iteration number.</span>
+<span class="sd">            params ([torch.Tensor]): List of torch.Tensors holding the network&#39;s</span>
+<span class="sd">                parameters.</span>
+<span class="sd">            batch_loss (torch.Tensor): Mini-batch loss from current step.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: Normalized step size α</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="s2">&quot;end&quot;</span>
+        <span class="n">until</span> <span class="o">=</span> <span class="n">global_step</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_0th_order_info</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">until</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__projection_with_backpack</span><span class="p">(</span><span class="n">global_step</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_project_with_backpack_finalize</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+        <span class="c1"># fall back to storing parameters and individual gradients at start/end</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_1st_order_info</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">until</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_project_end</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_alpha</span><span class="p">(</span><span class="n">global_step</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_project_with_backpack_finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finish up the computations for ``df`` and ``var_df`` at start and end point.</span>
+
+<span class="sd">        We need ``dᵀgᵢ / ||d||₂²`` (at start and end) and ``||d||₂²`` (at start) from</span>
+<span class="sd">        the parameter-wise quantities ``dᵀgᵢ`` (at start and end) and ``d`` (at start).</span>
+<span class="sd">        Thus, the following operations are performed:</span>
+
+<span class="sd">        - Compute ``||d||₂²`` and cache under ``update_size_start``</span>
+<span class="sd">        - Compute ``dᵀgᵢ / ||d||₂²`` with individual gradients at the start point, cache</span>
+<span class="sd">          mean in ``df_start`` and variance in ``var_df_start``.</span>
+<span class="sd">        - Compute ``dᵀgᵢ / ||d||₂²`` with individual gradients at the end point, cache</span>
+<span class="sd">          mean in ``df_end`` and variance in ``var_df_end``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            end_step (int): Iteration number of end step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">block_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_block_fn</span><span class="p">(</span><span class="n">end_step</span><span class="p">,</span> <span class="n">end_step</span><span class="p">)</span>
+        <span class="n">start_step</span> <span class="o">=</span> <span class="n">end_step</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVE_SHIFT</span>
+
+        <span class="c1"># compute the update step</span>
+        <span class="n">updates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;update_start&quot;</span><span class="p">)</span>
+        <span class="n">update_size</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">upd</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">upd</span> <span class="ow">in</span> <span class="n">updates</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;update_size_start&quot;</span><span class="p">,</span> <span class="n">update_size</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[[</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">end_step</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]]:</span>
+            <span class="n">dot_produts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;update_dot_grad_batch_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">projections</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dp</span> <span class="k">for</span> <span class="n">dp</span> <span class="ow">in</span> <span class="n">dot_produts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">/</span> <span class="n">update_size</span>
+
+            <span class="n">df</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;df_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+            <span class="n">df_var</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;var_df_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">df_var</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_project_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Project first-order information at end step and associated start step.</span>
+
+<span class="sd">        Assumes that parameters, gradients, and individual gradients are cached</span>
+<span class="sd">        at the end step and its associated start point.</span>
+
+<span class="sd">        Modifies ``self._cache``, creating the fields ``df_*`` and ``var_df``,</span>
+<span class="sd">        as well as ``update_size_start``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            end_step (int): Iteration number of end step.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_step</span> <span class="o">=</span> <span class="n">end_step</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVE_SHIFT</span>
+
+        <span class="c1"># update direction and its length</span>
+        <span class="n">start_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;params_start&quot;</span><span class="p">)</span>
+        <span class="n">end_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">end_step</span><span class="p">,</span> <span class="s2">&quot;params_end&quot;</span><span class="p">)</span>
+
+        <span class="n">search_dir</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">end_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">start_params</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="n">update_size</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">s</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">search_dir</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+        <span class="n">block_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_block_fn</span><span class="p">(</span><span class="n">end_step</span><span class="p">,</span> <span class="n">end_step</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;update_size_start&quot;</span><span class="p">,</span> <span class="n">update_size</span><span class="p">,</span> <span class="n">block_fn</span><span class="p">)</span>
+
+        <span class="c1"># projections</span>
+        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[[</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">end_step</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]]:</span>
+            <span class="c1"># projected gradient</span>
+            <span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;grad_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">grad</span> <span class="o">=</span> <span class="p">[</span><span class="n">grad</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">start_params</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span>
+                <span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;df_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_projected_gradient</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">search_dir</span><span class="p">),</span> <span class="n">block_fn</span>
+            <span class="p">)</span>
+
+            <span class="c1"># projected gradient variance</span>
+            <span class="n">grad_batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;grad_batch_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">grad_batch</span> <span class="o">=</span> <span class="p">[</span><span class="n">grad_batch</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">start_params</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span>
+                <span class="n">step</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;var_df_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">_exact_variance</span><span class="p">(</span><span class="n">grad_batch</span><span class="p">,</span> <span class="n">search_dir</span><span class="p">),</span>
+                <span class="n">block_fn</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">batched_dot_product</span><span class="p">(</span><span class="n">batched_tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute scalar product between a batched and an unbatched tensor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batched_tensor (torch.Tensor): Batched tensor along first axis.</span>
+<span class="sd">            tensor (torch.Tensor): Unbatched tensor. All axes are feature dimensions.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Tensor of shape ``[N]`` where ``N`` is the batch dimension.</span>
+<span class="sd">                Contains scalar products for each sample along the batch axis.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the batched tensor&#39;s trailing dimensions don&#39;t match the</span>
+<span class="sd">                unbatched tensor&#39;s shape.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">batched_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Tensors don&#39;t share same feature dimensions.&quot;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot; Got </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and f</span><span class="si">{</span><span class="n">batched_tensor</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">letters</span> <span class="o">=</span> <span class="n">get_first_n_alphabet</span><span class="p">(</span><span class="n">batched_tensor</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+        <span class="n">equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">letters</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">letters</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="si">}</span><span class="s2">-&gt;</span><span class="si">{</span><span class="n">letters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="n">equation</span><span class="p">,</span> <span class="n">batched_tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_compute_alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute and return alpha, assuming all information has been cached.</span>
+
+<span class="sd">        Requires the following cached entries:</span>
+<span class="sd">        - ``update_size_start``</span>
+<span class="sd">        - ``f_start``, ``f_end``, ``var_f_start``, ``var_f_end``</span>
+<span class="sd">        - ``df_start``, ``df_end``, ``var_df_start``, ``var_df_end``</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            end_step (int): Iteration number of the end point.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: Local effective step size α.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_step</span> <span class="o">=</span> <span class="n">end_step</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVE_SHIFT</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;update_size_start&quot;</span><span class="p">)</span>
+
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[[</span><span class="n">start_step</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">end_step</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]]</span>
+
+        <span class="n">fs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;f_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+        <span class="n">dfs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;df_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+        <span class="n">var_fs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;var_f_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+        <span class="n">var_dfs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;var_df_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+
+        <span class="c1"># Compute alpha</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">_fit_quadratic</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">dfs</span><span class="p">,</span> <span class="n">var_fs</span><span class="p">,</span> <span class="n">var_dfs</span><span class="p">)</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">_get_alpha</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">alpha</span></div>
+
+
+<span class="c1"># TODO Move inside class</span>
+<span class="k">def</span> <span class="nf">_projected_gradient</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes magnitude of a projection of one vector onto another.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u ([torch.Tensor]): First parameter vector, the vector to be projected.</span>
+<span class="sd">        v ([torch.Tensor]): Second parameter vector, the direction.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Scalar magnitude of the projection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dot_product</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">_layerwise_dot_product</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">_root_sum_of_squares</span><span class="p">([</span><span class="n">v_el</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">v_el</span> <span class="ow">in</span> <span class="n">v</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dot_product</span> <span class="o">/</span> <span class="n">norm</span>
+
+
+<span class="c1"># TODO Move inside class</span>
+<span class="k">def</span> <span class="nf">_exact_variance</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="n">search_dir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes the exact variance of individual projected gradients.</span>
+
+<span class="sd">    The gradients are projected onto the search direction before the variance</span>
+<span class="sd">    is computed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        grads (list): List of individual gradients</span>
+<span class="sd">        search_dir (list): List of search direction</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A list of the variances per layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># swap order of first two axis, so now it is:</span>
+    <span class="c1"># grads[batch_size, layer, parameters]</span>
+    <span class="n">grads</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">element</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">zip_longest</span><span class="p">(</span><span class="o">*</span><span class="n">grads</span><span class="p">))</span>
+    <span class="p">]</span>
+    <span class="n">proj_grad</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">grads</span><span class="p">:</span>
+        <span class="n">proj_grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_projected_gradient</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">search_dir</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">proj_grad</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="c1"># TODO Move inside class</span>
+<span class="k">def</span> <span class="nf">_fit_quadratic</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">dfs</span><span class="p">,</span> <span class="n">fs_var</span><span class="p">,</span> <span class="n">dfs_var</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fit a quadratic, given two (noisy) function &amp; gradient observations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        t (float): Position of second observation.</span>
+<span class="sd">        fs (float): Function values at 0 and t.</span>
+<span class="sd">        dfs (float): Projected gradients at 0 and t.</span>
+<span class="sd">        fs_var (list): Variances of function values at 0 and t.</span>
+<span class="sd">        dfs_var (list): Variances of projected gradients at 0 and t.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.array: Parameters of the quadratic fit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The first observation is always at 0, the second at t</span>
+    <span class="c1"># Observation matrix (f(0), then f(t), then f&#39;(0) and f&#39;(t))</span>
+    <span class="c1"># The matrix shows how we observe the parameters of the quadratic</span>
+    <span class="c1"># i.e. for f(0) we see (0)**2 *w1 + (0)*w2 + w3</span>
+    <span class="c1"># and for f&#39;(t) we see 2*(t)*w1 + w2</span>
+
+    <span class="n">Phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="c1"># small value to use if one of the variances or t is 0.</span>
+    <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-10</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="n">fs_var</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;The variance of f is 0, using a small value instead.&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span>
+        <span class="p">)</span>
+        <span class="n">fs_var</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">eps</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span><span class="p">,</span> <span class="n">fs_var</span><span class="p">))</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="n">dfs_var</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;The variance of df is 0, using a small value instead.&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span>
+        <span class="p">)</span>
+        <span class="n">dfs_var</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">eps</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span><span class="p">,</span> <span class="n">dfs_var</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;The two observations were (almost) at the same point.&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span>
+        <span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Covariance matrix</span>
+        <span class="n">lambda_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">fs_var</span> <span class="o">+</span> <span class="n">dfs_var</span><span class="p">))</span>
+        <span class="c1"># Maximum Likelihood Estimation</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Phi</span> <span class="o">@</span> <span class="n">lambda_inv</span> <span class="o">@</span> <span class="n">Phi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">@</span> <span class="n">Phi</span> <span class="o">@</span> <span class="n">lambda_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">fs</span> <span class="o">+</span> <span class="n">dfs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Couldn&#39;t compute a quadratic fit due to Singular matrix, returning None&quot;</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">mu</span>
+
+
+<span class="c1"># TODO Move inside class</span>
+<span class="k">def</span> <span class="nf">_get_alpha</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the local step size alpha.</span>
+
+<span class="sd">    It will be expressed in terms of the local quadratic fit. A local step size</span>
+<span class="sd">    of 1, is equal to `stepping on the other side of the quadratic`, while a</span>
+<span class="sd">    step size of 0 means `stepping to the minimum`.</span>
+
+<span class="sd">    If no quadratic approximation could be computed, return None.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mu (list): Parameters of the quadratic fit.</span>
+<span class="sd">        t (float): Step size (taken).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Local effective step size.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If we couldn&#39;t compute a quadratic approx., return None or -1 if it was</span>
+    <span class="c1"># due to a very small step</span>
+    <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="n">mu</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Concave setting: Since this means that it is still going downhill</span>
+        <span class="c1"># where we stepped to, we will log it as -1.</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># get alpha_bar (the step size that is &quot;the other side&quot;)</span>
+        <span class="n">alpha_bar</span> <span class="o">=</span> <span class="o">-</span><span class="n">mu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">mu</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># scale everything on a standard quadratic (i.e. step of 0 = minimum)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">alpha_bar</span> <span class="o">-</span> <span class="mi">1</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

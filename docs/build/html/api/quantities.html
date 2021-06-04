@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Quantities &mdash; Cockpit 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/stylefile.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Alpha" href="automod/cockpit.quantities.Alpha.html" />
+    <link rel="prev" title="Cockpit Plotter" href="plotter.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #fcfcfc" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cockpit
+          
+
+          
+            
+            <img src="../_static/LogoSquare.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/01_basic_fmnist.html">Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/02_advanced_fmnist.html">Advanced Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/03_deepobs.html">DeepOBS Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/good_to_know.html">Good to Know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cockpit.html">Cockpit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotter.html">Cockpit Plotter</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quantities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.Alpha.html">Alpha</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.CABS.html">CABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.Distance.html">Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.EarlyStopping.html">EarlyStopping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.GradHist1d.html">GradHist1d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.GradHist2d.html">GradHist2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.GradNorm.html">GradNorm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.HessMaxEV.html">HessMaxEV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.HessTrace.html">HessTrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.InnerTest.html">InnerTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.Loss.html">Loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.MeanGSNR.html">MeanGSNR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.NormTest.html">NormTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.OrthoTest.html">OrthoTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.Parameters.html">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.TICDiag.html">TICDiag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.TICTrace.html">TICTrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.Time.html">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automod/cockpit.quantities.UpdateSize.html">UpdateSize</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://h1j9d3q.github.io/cockpit/">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cockpit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Quantities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/quantities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quantities">
+<span id="id1"></span><h1>Quantities<a class="headerlink" href="#quantities" title="Permalink to this headline">¶</a></h1>
+<p><strong>Cockpit</strong> offers a large set of so called <em>quantities</em> that can be efficiently
+tracked during the training process.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.Loss.html#cockpit.quantities.Loss" title="cockpit.quantities.Loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Loss</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Loss Quantity class tracking the mini-batch training loss during training.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.Parameters.html#cockpit.quantities.Parameters" title="cockpit.quantities.Parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameters</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Parameter Quantitiy class tracking the current parameters in each iteration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.Distance.html#cockpit.quantities.Distance" title="cockpit.quantities.Distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Distance</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Distance Quantity class tracking distance of the parameters from their init.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.UpdateSize.html#cockpit.quantities.UpdateSize" title="cockpit.quantities.UpdateSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UpdateSize</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Quantity class for tracking parameter update sizes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.GradNorm.html#cockpit.quantities.GradNorm" title="cockpit.quantities.GradNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GradNorm</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Quantitiy Class for tracking the norm of the mean gradient.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.Time.html#cockpit.quantities.Time" title="cockpit.quantities.Time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Time</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Time Quantity Class tracking the time during training.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.Alpha.html#cockpit.quantities.Alpha" title="cockpit.quantities.Alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Alpha</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Alpha Quantity class for the normalized step length α.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.CABS.html#cockpit.quantities.CABS" title="cockpit.quantities.CABS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CABS</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>CABS Quantity class for the suggested batch size using the CABS criterion.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.EarlyStopping.html#cockpit.quantities.EarlyStopping" title="cockpit.quantities.EarlyStopping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a>(track_schedule[, verbose, epsilon])</p></td>
+<td><p>Quantity class for the evidence-based early-stopping criterion.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.GradHist1d.html#cockpit.quantities.GradHist1d" title="cockpit.quantities.GradHist1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GradHist1d</span></code></a>(track_schedule[, verbose, bins, …])</p></td>
+<td><p>Quantity class for one-dimensional histograms of indivdual gradient elements.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.GradHist2d.html#cockpit.quantities.GradHist2d" title="cockpit.quantities.GradHist2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GradHist2d</span></code></a>(track_schedule[, verbose, bins, …])</p></td>
+<td><p>Quantity class for two-dimensional histograms over gradient and parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.NormTest.html#cockpit.quantities.NormTest" title="cockpit.quantities.NormTest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NormTest</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Quantitiy Class for the norm test.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.InnerTest.html#cockpit.quantities.InnerTest" title="cockpit.quantities.InnerTest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InnerTest</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Quantitiy Class for tracking the result of the inner product test.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.OrthoTest.html#cockpit.quantities.OrthoTest" title="cockpit.quantities.OrthoTest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OrthoTest</span></code></a>(track_schedule[, verbose])</p></td>
+<td><p>Quantity Class for the orthogonality test.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.HessMaxEV.html#cockpit.quantities.HessMaxEV" title="cockpit.quantities.HessMaxEV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HessMaxEV</span></code></a>(track_schedule[, verbose, use_power])</p></td>
+<td><p>Quantity Class tracking the Hessian’s largest eigenvalue.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.HessTrace.html#cockpit.quantities.HessTrace" title="cockpit.quantities.HessTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HessTrace</span></code></a>(track_schedule[, verbose, curvature])</p></td>
+<td><p>Quantitiy Class tracking the trace of the Hessian during training.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.TICDiag.html#cockpit.quantities.TICDiag" title="cockpit.quantities.TICDiag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TICDiag</span></code></a>(track_schedule[, verbose, …])</p></td>
+<td><p>Quantity class for tracking the TIC using diagonal curvature approximation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="automod/cockpit.quantities.TICTrace.html#cockpit.quantities.TICTrace" title="cockpit.quantities.TICTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TICTrace</span></code></a>(track_schedule[, verbose, …])</p></td>
+<td><p>Quantity class for the TIC using the trace of curvature and gradient covariance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="automod/cockpit.quantities.MeanGSNR.html#cockpit.quantities.MeanGSNR" title="cockpit.quantities.MeanGSNR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeanGSNR</span></code></a>(track_schedule[, verbose, epsilon])</p></td>
+<td><p>Quantitiy Class for the mean gradient signal-to-noise ratio (GSNR).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="automod/cockpit.quantities.Alpha.html" class="btn btn-neutral float-right" title="Alpha" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plotter.html" class="btn btn-neutral float-left" title="Cockpit Plotter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 ANONYMIZED.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
